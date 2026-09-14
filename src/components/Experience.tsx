@@ -6,7 +6,7 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 sm:py-28 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="05" title="Experience" />
+        <SectionHeading index="04" title="Experience" />
 
         <div className="relative border-l border-border ml-2 space-y-10">
           {experience.map((e, i) => (

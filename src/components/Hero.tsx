@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Download, GraduationCap } from 'lucide-react'
 import { profile } from '../data/content'
+import { downloadResume } from '../utils/downloadResume'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -79,6 +80,10 @@ export default function Hero() {
           <a
             href={profile.resumeUrl}
             download={profile.resumeFileName}
+            onClick={(e) => {
+              e.preventDefault()
+              downloadResume(profile.resumeUrl, profile.resumeFileName)
+            }}
             className="inline-flex items-center gap-2 rounded-md border border-border text-ink font-mono text-sm px-5 py-3 hover:border-accent hover:text-accent transition"
           >
             <Download size={16} /> Download Resume

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Menu, X, Download } from 'lucide-react'
-import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { profile } from '../data/content'
+import { downloadResume } from '../utils/downloadResume'
 
 const links = [
   { href: '#about', label: 'About' },
-  { href: '#philosophy', label: 'Philosophy' },
   { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
   { href: '#experience', label: 'Experience' },
@@ -64,8 +64,21 @@ export default function Nav() {
             <FaLinkedin size={18} />
           </a>
           <a
+            href={profile.instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            className="text-muted hover:text-accent transition-colors"
+          >
+            <FaInstagram size={18} />
+          </a>
+          <a
             href={profile.resumeUrl}
             download={profile.resumeFileName}
+            onClick={(e) => {
+              e.preventDefault()
+              downloadResume(profile.resumeUrl, profile.resumeFileName)
+            }}
             className="inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-md border border-border text-ink hover:border-accent hover:text-accent transition-colors"
           >
             <Download size={14} /> Resume
@@ -100,9 +113,16 @@ export default function Nav() {
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-muted hover:text-accent">
               <FaLinkedin size={18} />
             </a>
+            <a href={profile.instagram} target="_blank" rel="noreferrer" className="text-muted hover:text-accent">
+              <FaInstagram size={18} />
+            </a>
             <a
               href={profile.resumeUrl}
               download={profile.resumeFileName}
+              onClick={(e) => {
+                e.preventDefault()
+                downloadResume(profile.resumeUrl, profile.resumeFileName)
+              }}
               className="text-muted hover:text-accent flex items-center gap-1"
             >
               <Download size={14} /> Resume

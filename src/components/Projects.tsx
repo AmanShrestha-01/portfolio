@@ -9,7 +9,7 @@ export default function Projects() {
     <section id="projects" className="py-24 sm:py-28 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          index="04"
+          index="03"
           title="Projects"
           subtitle="Five production APIs, each covering a different piece of real-world backend engineering — auth, payments, real-time messaging, and AI integration."
         />

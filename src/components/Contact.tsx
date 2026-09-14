@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Mail } from 'lucide-react'
-import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { profile } from '../data/content'
 
 export default function Contact() {
@@ -16,7 +16,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="font-mono text-sm text-accent mb-3"
         >
-          // 06. Contact
+          // 05. Contact
         </motion.p>
 
         <motion.h2
@@ -76,6 +76,14 @@ export default function Contact() {
             className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"
           >
             <FaLinkedin size={18} /> LinkedIn
+          </a>
+          <a
+            href={profile.instagram}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"
+          >
+            <FaInstagram size={18} /> Instagram
           </a>
         </motion.div>
       </div>

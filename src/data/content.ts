@@ -7,6 +7,7 @@ export const profile = {
   github: 'https://github.com/AmanShrestha-01',
   githubHandle: 'AmanShrestha-01',
   linkedin: 'https://www.linkedin.com/in/aman-shrestha-94388326a/',
+  instagram: 'https://www.instagram.com/aman.shrestha_003/',
   resumeUrl: '/resume.pdf',
   resumeFileName: "Aman's Professional Resume.pdf",
   eduLine: 'B.S. Computer Science — Morgan State University, Class of 2028',
@@ -30,13 +31,10 @@ export const profile = {
   status: 'Looking for backend engineering internships — Summer / Fall 2026',
 }
 
-export const mottos: string[] = [
-  'Every system fails eventually — the job is deciding which failures you can live with.',
-  'Discipline is architecture applied to a person instead of a program.',
-  "I don't trust code I haven't tried to break, or a belief I haven't tried to argue against.",
-  'A plan beats motivation the same way a schema beats guesswork.',
-  'Chess, backend systems, and self-improvement all reward the same thing: repetition without ego.',
-  'Ship it, measure it, argue with yourself about it later — certainty is a bug, not a feature.',
+export const quotes: string[] = [
+  'If not me, then who?',
+  'Memento mori. Memento vivere.',
+  "I don't have a Plan B — I'll make this happen.",
 ]
 
 export type SkillCategory = {

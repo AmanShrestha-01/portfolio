@@ -1,4 +1,5 @@
 import Nav from './components/Nav'
+import CursorGlow from './components/CursorGlow'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
@@ -10,6 +11,7 @@ import Footer from './components/Footer'
 function App() {
   return (
     <div className="min-h-screen bg-bg text-ink font-sans">
+      <CursorGlow />
       <Nav />
       <main>
         <Hero />

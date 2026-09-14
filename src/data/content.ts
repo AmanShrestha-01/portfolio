@@ -12,9 +12,10 @@ export const profile = {
   resumeFileName: "Aman's Professional Resume.pdf",
   eduLine: 'B.S. Computer Science — Morgan State University, Class of 2028',
   pitch:
-    "I build backend systems from scratch and deploy them live — REST APIs with real auth, real databases, and real edge cases handled.",
+    "I build software from scratch and ship it live — right now that's mostly backend: REST APIs with real auth, real databases, and real edge cases handled.",
   bio: [
-    "I like problems with a database underneath and a real user on the other end of the request — which is why, for the past several months, I've run myself through a self-directed, 24-week backend engineering program: no courses, no hand-holding, just architecture decisions, edge cases, and five production APIs shipped from scratch.",
+    "I like problems with a database underneath and a real user on the other end of the request — which is why, for the past several months, I've run myself through a self-directed, 24-week engineering program going deep on backend systems: architecture decisions, edge cases, and five production APIs shipped from scratch.",
+    "Backend is where I've gone deepest, but not where I've stayed narrow. I've worked through data structures and algorithms, built with real object-oriented design, and shipped a full-stack app with a Next.js frontend. Backend is my specialization for now — I expect that to keep evolving.",
     "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
     "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing when no one's listening, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
@@ -28,7 +29,7 @@ export const profile = {
     'Psychology',
     'Systems Design',
   ],
-  status: 'Looking for backend engineering internships — Summer / Fall 2026',
+  status: 'Looking for software engineering internships — Summer / Fall 2026',
 }
 
 export const quotes = {
@@ -45,7 +46,8 @@ export type SkillCategory = {
 
 export const skills: SkillCategory[] = [
   { label: 'Languages', items: ['Python', 'Java', 'C', 'C++', 'JavaScript', 'SQL'] },
-  { label: 'Frameworks', items: ['Flask', 'Flask-SocketIO', 'SQLAlchemy', 'Pytest'] },
+  { label: 'Foundations', items: ['Data Structures & Algorithms', 'Object-Oriented Design'] },
+  { label: 'Frameworks', items: ['Flask', 'Flask-SocketIO', 'SQLAlchemy', 'Pytest', 'Next.js', 'React'] },
   { label: 'Databases', items: ['PostgreSQL', 'Redis', 'SQLite'] },
   { label: 'Infrastructure', items: ['Docker', 'Docker Compose', 'Render', 'GitHub Actions CI/CD'] },
   {
@@ -135,6 +137,20 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/AmanShrestha-01/Bookmarks_REST_API',
     liveUrl: 'https://kaizen-bookmarks-api.onrender.com',
   },
+  {
+    slug: 'newari-ghar',
+    name: 'Newari-Ghar',
+    year: '2026',
+    status: 'Deployed',
+    summary:
+      'A full-stack restaurant site for Nepali & Indian cuisine, with a Next.js frontend and an Express backend.',
+    bullets: [
+      'Built the customer-facing frontend in Next.js — menu browsing, responsive layout, page routing',
+      'Paired it with an Express backend serving structured menu and restaurant data',
+    ],
+    stack: ['Next.js', 'React', 'Express', 'Node.js'],
+    githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
+  },
 ]
 
 export type ExperienceItem = {
@@ -147,12 +163,12 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    title: 'Backend Engineer',
+    title: 'Software Engineer',
     org: 'Self-Directed',
     location: 'Remote',
     period: 'Jan 2026 — Present',
     bullets: [
-      'Building production-grade backend APIs through a structured 24-week engineering program — five projects architected, tested, and deployed to production',
+      'Building production-grade software through a structured 24-week engineering program — five backend-heavy projects architected, tested, and deployed to production',
     ],
   },
   {

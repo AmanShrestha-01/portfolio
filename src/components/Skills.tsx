@@ -7,7 +7,7 @@ export default function Skills() {
   return (
     <section id="skills" className="py-28 sm:py-36 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading index="02" title="Skills" subtitle="The stack I reach for when building and shipping backend systems." />
+        <SectionHeading index="02" title="Skills" subtitle="The stack I reach for when building and shipping software." />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {skills.map((group, i) => (

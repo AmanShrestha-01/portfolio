@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Download, GraduationCap } from 'lucide-react'
 import { profile, quotes } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
@@ -17,8 +17,6 @@ const reveal = {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
-  const spotX = useMotionValue(50)
-  const spotY = useMotionValue(30)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -27,38 +25,25 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    spotX.set(((e.clientX - rect.left) / rect.width) * 100)
-    spotY.set(((e.clientY - rect.top) / rect.height) * 100)
-  }
-
   return (
     <section
       ref={sectionRef}
       id="top"
-      onMouseMove={handleMouseMove}
       className="relative pt-40 pb-32 sm:pt-56 sm:pb-44 overflow-hidden"
     >
       <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
 
       <motion.div
         aria-hidden
-        className="absolute inset-0 opacity-70 pointer-events-none"
-        style={{
-          background: useTransform(
-            [spotX, spotY],
-            ([x, y]: number[]) =>
-              `radial-gradient(600px circle at ${x}% ${y}%, var(--color-accent-soft), transparent 70%)`
-          ),
-        }}
-      />
-
-      <motion.div
-        aria-hidden
         className="absolute -top-40 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
         animate={{ x: [0, 40, -20, 0], y: [0, 20, -10, 0], scale: [1, 1.08, 0.96, 1] }}
         transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        aria-hidden
+        className="absolute -top-20 right-0 w-[28rem] h-[28rem] rounded-full bg-[#a78bfa]/10 blur-[110px] pointer-events-none"
+        animate={{ x: [0, -30, 15, 0], y: [0, -15, 25, 0], scale: [1, 0.94, 1.06, 1] }}
+        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <motion.div
@@ -81,7 +66,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight text-ink leading-[0.95] max-w-4xl"
+          className="text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight gradient-text leading-[0.95] max-w-4xl"
         >
           {profile.name}
         </motion.h1>

@@ -12,7 +12,7 @@ export default function Projects() {
         <SectionHeading
           index="03"
           title="Projects"
-          subtitle="Five production APIs, each covering a different piece of real-world backend engineering — auth, payments, real-time messaging, and AI integration."
+          subtitle="Six shipped projects — five backend APIs and one full-stack web app — covering auth, payments, real-time messaging, AI integration, and frontend development."
         />
 
         <div className="grid md:grid-cols-2 gap-6">

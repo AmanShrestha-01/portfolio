@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
+import Philosophy from './components/Philosophy'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
@@ -14,6 +15,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Philosophy />
         <Skills />
         <Projects />
         <Experience />

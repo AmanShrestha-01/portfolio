@@ -9,7 +9,7 @@ export default function Projects() {
     <section id="projects" className="py-24 sm:py-28 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
-          index="03"
+          index="04"
           title="Projects"
           subtitle="Five production APIs, each covering a different piece of real-world backend engineering — auth, payments, real-time messaging, and AI integration."
         />
@@ -69,7 +69,7 @@ export default function Projects() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm font-mono text-ink hover:text-accent transition-colors"
                   >
-                    <FaGithub size={15} /> code
+                    <FaGithub size={15} /> Code
                   </a>
                   {p.liveUrl && (
                     <a
@@ -78,7 +78,7 @@ export default function Projects() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 text-sm font-mono text-ink hover:text-accent transition-colors"
                     >
-                      <ExternalLink size={15} /> live
+                      <ExternalLink size={15} /> Live
                     </a>
                   )}
                 </div>

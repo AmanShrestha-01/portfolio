@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
+import { ArrowRight, Download, GraduationCap } from 'lucide-react'
 import { profile } from '../data/content'
 
 const fadeUp = {
@@ -54,12 +54,22 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={fadeUp}
+          className="mt-3 font-mono text-sm text-muted flex items-center gap-2"
+        >
+          <GraduationCap size={15} className="text-accent" /> {profile.eduLine}
+        </motion.p>
+
+        <motion.p
+          custom={4}
+          initial="hidden"
+          animate="show"
+          variants={fadeUp}
           className="mt-6 max-w-2xl text-base sm:text-lg text-muted leading-relaxed"
         >
           {profile.pitch}
         </motion.p>
 
-        <motion.div custom={4} initial="hidden" animate="show" variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
+        <motion.div custom={5} initial="hidden" animate="show" variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
           <a
             href="#projects"
             className="inline-flex items-center gap-2 rounded-md bg-accent text-black font-mono text-sm font-semibold px-5 py-3 hover:brightness-110 transition"
@@ -68,7 +78,7 @@ export default function Hero() {
           </a>
           <a
             href={profile.resumeUrl}
-            download
+            download={profile.resumeFileName}
             className="inline-flex items-center gap-2 rounded-md border border-border text-ink font-mono text-sm px-5 py-3 hover:border-accent hover:text-accent transition"
           >
             <Download size={16} /> Download Resume
@@ -76,7 +86,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          custom={5}
+          custom={6}
           initial="hidden"
           animate="show"
           variants={fadeUp}

@@ -23,6 +23,26 @@ export default function About() {
                 {p}
               </motion.p>
             ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: profile.bio.length * 0.08 }}
+              className="pt-2"
+            >
+              <p className="text-sm text-muted font-mono mb-2">Interests</p>
+              <div className="flex flex-wrap gap-2">
+                {profile.interests.map((interest) => (
+                  <span
+                    key={interest}
+                    className="text-xs font-mono px-2 py-1 rounded border border-border text-muted"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
 
           <motion.div
@@ -35,21 +55,21 @@ export default function About() {
             <div className="flex items-start gap-3">
               <MapPin size={18} className="text-accent mt-0.5 shrink-0" />
               <div>
-                <p className="text-sm text-muted font-mono">location</p>
+                <p className="text-sm text-muted font-mono">Location</p>
                 <p className="text-ink">{profile.location}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <GraduationCap size={18} className="text-accent mt-0.5 shrink-0" />
               <div>
-                <p className="text-sm text-muted font-mono">education</p>
+                <p className="text-sm text-muted font-mono">Education</p>
                 <p className="text-ink">{education.school}</p>
                 <p className="text-sm text-muted">{education.degree}</p>
                 <p className="text-sm text-muted">Graduating {education.graduation}</p>
               </div>
             </div>
             <div>
-              <p className="text-sm text-muted font-mono mb-2">coursework</p>
+              <p className="text-sm text-muted font-mono mb-2">Coursework</p>
               <div className="flex flex-wrap gap-2">
                 {education.coursework.map((c) => (
                   <span

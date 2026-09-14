@@ -7,7 +7,7 @@ export default function Footer() {
         <p>© {new Date().getFullYear()} {profile.name}. Built from scratch, shipped like the rest.</p>
         <p className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
-          status: available
+          Status: Available
         </p>
       </div>
     </footer>

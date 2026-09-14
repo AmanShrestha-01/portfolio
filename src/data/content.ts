@@ -6,17 +6,38 @@ export const profile = {
   email: 'amanshrestha3003@gmail.com',
   github: 'https://github.com/AmanShrestha-01',
   githubHandle: 'AmanShrestha-01',
-  linkedin: 'https://linkedin.com/in/aman-shrestha',
+  linkedin: 'https://www.linkedin.com/in/aman-shrestha-94388326a/',
   resumeUrl: '/resume.pdf',
+  resumeFileName: "Aman's Professional Resume.pdf",
+  eduLine: 'B.S. Computer Science — Morgan State University, Class of 2028',
   pitch:
     "I build backend systems from scratch and deploy them live — REST APIs with real auth, real databases, and real edge cases handled.",
   bio: [
-    "I'm a rising junior studying Computer Science at Morgan State University, and for the past several months I've been running myself through a self-directed, 24-week backend engineering program — architecting, testing, and deploying five production APIs from the ground up.",
-    "Every project follows the same principles: hashed passwords, token-based auth, input validation, organized codebases, automated tests, and live deployment. No tutorials left half-finished — everything ships with Swagger docs and a clean commit history.",
-    "Outside of code, I'm into systems design, backend architecture, high-performance psychology, and soccer.",
+    "I like problems with a database underneath and a real user on the other end of the request — which is why, for the past several months, I've run myself through a self-directed, 24-week backend engineering program: no courses, no hand-holding, just architecture decisions, edge cases, and five production APIs shipped from scratch.",
+    "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
+    "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing when no one's listening, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
+  ],
+  interests: [
+    'Chess',
+    'Weight Training',
+    'Soccer',
+    'Pickleball',
+    'Singing',
+    'Philosophy',
+    'Psychology',
+    'Systems Design',
   ],
   status: 'Looking for backend engineering internships — Summer / Fall 2026',
 }
+
+export const mottos: string[] = [
+  'Every system fails eventually — the job is deciding which failures you can live with.',
+  'Discipline is architecture applied to a person instead of a program.',
+  "I don't trust code I haven't tried to break, or a belief I haven't tried to argue against.",
+  'A plan beats motivation the same way a schema beats guesswork.',
+  'Chess, backend systems, and self-improvement all reward the same thing: repetition without ego.',
+  'Ship it, measure it, argue with yourself about it later — certainty is a bug, not a feature.',
+]
 
 export type SkillCategory = {
   label: string

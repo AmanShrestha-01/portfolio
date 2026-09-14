@@ -16,7 +16,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="font-mono text-sm text-accent mb-3"
         >
-          // 05. contact
+          // 06. Contact
         </motion.p>
 
         <motion.h2
@@ -67,7 +67,7 @@ export default function Contact() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"
           >
-            <FaGithub size={18} /> github
+            <FaGithub size={18} /> GitHub
           </a>
           <a
             href={profile.linkedin}
@@ -75,7 +75,7 @@ export default function Contact() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 text-muted hover:text-accent transition-colors font-mono text-sm"
           >
-            <FaLinkedin size={18} /> linkedin
+            <FaLinkedin size={18} /> LinkedIn
           </a>
         </motion.div>
       </div>

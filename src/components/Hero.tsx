@@ -40,13 +40,6 @@ export default function Hero() {
         transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        aria-hidden
-        className="absolute -top-20 right-0 w-[28rem] h-[28rem] rounded-full bg-[#a78bfa]/10 blur-[110px] pointer-events-none"
-        animate={{ x: [0, -30, 15, 0], y: [0, -15, 25, 0], scale: [1, 0.94, 1.06, 1] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      <motion.div
         className="relative mx-auto max-w-6xl px-5 sm:px-8"
         style={{ y: contentY, opacity: contentOpacity }}
       >
@@ -66,7 +59,7 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight gradient-text leading-[0.95] max-w-4xl"
+          className="font-mono text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight text-ink leading-[0.95] max-w-4xl"
         >
           {profile.name}
         </motion.h1>

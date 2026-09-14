@@ -14,7 +14,7 @@ export const profile = {
   pitch:
     "I build software from scratch and ship it live — right now that's mostly backend: REST APIs with real auth, real databases, and real edge cases handled.",
   bio: [
-    "I like problems with a database underneath and a real user on the other end of the request — which is why, for the past several months, I've run myself through a self-directed, 24-week engineering program going deep on backend systems: architecture decisions, edge cases, and five production APIs shipped from scratch.",
+    "I like problems with a database underneath and a real user on the other end of the request — which is why I've spent the past year focused on backend: architecture decisions, edge cases, and five production APIs shipped from scratch, all self-directed.",
     "Backend is where I've gone deepest, but not where I've stayed narrow. I've worked through data structures and algorithms, built with real object-oriented design, and shipped a full-stack app with a Next.js frontend. Backend is my specialization for now — I expect that to keep evolving.",
     "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
     "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing when no one's listening, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
@@ -25,11 +25,12 @@ export const profile = {
     'Soccer',
     'Pickleball',
     'Singing',
+    'Guitar',
     'Philosophy',
     'Psychology',
     'Systems Design',
   ],
-  status: 'Looking for software engineering internships — Summer / Fall 2026',
+  status: 'Looking for software engineering internships — Summer / Fall',
 }
 
 export const quotes = {
@@ -98,6 +99,20 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/AmanShrestha-01/E-Commerce-API',
   },
   {
+    slug: 'newari-ghar',
+    name: 'Newari-Ghar',
+    year: '2026',
+    status: 'Deployed',
+    summary:
+      'A full-stack restaurant site for Nepali & Indian cuisine, with a Next.js frontend and an Express backend.',
+    bullets: [
+      'Built the customer-facing frontend in Next.js — menu browsing, responsive layout, page routing',
+      'Paired it with an Express backend serving structured menu and restaurant data',
+    ],
+    stack: ['Next.js', 'React', 'Express', 'Node.js'],
+    githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
+  },
+  {
     slug: 'ai-nutriplan',
     name: 'AI-NutriPlan',
     year: '2025',
@@ -136,20 +151,6 @@ export const projects: Project[] = [
     stack: ['Flask', 'SQLAlchemy', 'JWT', 'Bcrypt', 'Render'],
     githubUrl: 'https://github.com/AmanShrestha-01/Bookmarks_REST_API',
     liveUrl: 'https://kaizen-bookmarks-api.onrender.com',
-  },
-  {
-    slug: 'newari-ghar',
-    name: 'Newari-Ghar',
-    year: '2026',
-    status: 'Deployed',
-    summary:
-      'A full-stack restaurant site for Nepali & Indian cuisine, with a Next.js frontend and an Express backend.',
-    bullets: [
-      'Built the customer-facing frontend in Next.js — menu browsing, responsive layout, page routing',
-      'Paired it with an Express backend serving structured menu and restaurant data',
-    ],
-    stack: ['Next.js', 'React', 'Express', 'Node.js'],
-    githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
   },
 ]
 

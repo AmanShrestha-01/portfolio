@@ -18,7 +18,7 @@ export default function SectionHeading({
       className="mb-14"
     >
       <p className="font-mono text-sm text-accent mb-2">// {index}</p>
-      <h2 className="text-4xl sm:text-5xl font-bold text-ink tracking-tight">{title}</h2>
+      <h2 className="font-mono text-4xl sm:text-5xl font-bold text-ink tracking-tight">{title}</h2>
       {subtitle && <p className="mt-3 text-muted max-w-2xl text-lg">{subtitle}</p>}
     </motion.div>
   )

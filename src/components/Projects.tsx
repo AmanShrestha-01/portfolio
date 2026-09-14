@@ -45,7 +45,7 @@ export default function Projects() {
                 </div>
 
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-semibold text-ink group-hover:text-accent transition-colors">
+                  <h3 className="font-mono text-xl font-semibold text-ink group-hover:text-accent transition-colors">
                     {p.name}
                   </h3>
                   <p className="mt-2 text-sm text-muted leading-relaxed">{p.summary}</p>

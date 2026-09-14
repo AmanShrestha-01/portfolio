@@ -22,7 +22,7 @@ export default function Experience() {
               <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg" />
               <TiltCard className="glass glass-hover rounded-lg p-5">
                 <p className="font-mono text-xs text-muted">{e.period}</p>
-                <h3 className="text-lg font-semibold text-ink mt-1">{e.title}</h3>
+                <h3 className="font-mono text-lg font-semibold text-ink mt-1">{e.title}</h3>
                 <p className="text-accent-2 font-mono text-sm">
                   {e.org} <span className="text-muted">· {e.location}</span>
                 </p>

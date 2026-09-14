@@ -7,7 +7,6 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 sm:py-32 border-t border-border relative overflow-hidden">
       <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-[120px]" />
-      <div className="absolute -bottom-20 right-0 w-[26rem] h-[26rem] rounded-full bg-[#a78bfa]/10 blur-[110px]" />
 
       <div className="relative mx-auto max-w-3xl px-5 sm:px-8 text-center">
         <motion.p
@@ -25,7 +24,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="text-3xl sm:text-5xl font-bold text-ink tracking-tight"
+          className="font-mono text-3xl sm:text-5xl font-bold text-ink tracking-tight"
         >
           Let's make something worth remembering.
         </motion.h2>
@@ -37,7 +36,7 @@ export default function Contact() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-4 text-muted text-lg"
         >
-          Open to software engineering internships for Summer / Fall 2026 — reach out any time.
+          Open to software engineering internships for Summer / Fall — reach out any time.
         </motion.p>
 
         <motion.div

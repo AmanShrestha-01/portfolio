@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { GraduationCap, MapPin } from 'lucide-react'
 import { profile, education, quotes } from '../data/content'
 import SectionHeading from './SectionHeading'
+import TiltCard from './TiltCard'
 
 export default function About() {
   return (
@@ -61,37 +62,39 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="glass glass-hover rounded-lg p-6 space-y-5 h-fit"
+            className="h-fit"
           >
-            <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-accent mt-0.5 shrink-0" />
+            <TiltCard className="glass glass-hover rounded-lg p-6 space-y-5">
+              <div className="flex items-start gap-3">
+                <MapPin size={18} className="text-accent mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-sm text-muted font-mono">Location</p>
+                  <p className="text-ink">{profile.location}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <GraduationCap size={18} className="text-accent mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-sm text-muted font-mono">Education</p>
+                  <p className="text-ink">{education.school}</p>
+                  <p className="text-sm text-muted">{education.degree}</p>
+                  <p className="text-sm text-muted">Graduating {education.graduation}</p>
+                </div>
+              </div>
               <div>
-                <p className="text-sm text-muted font-mono">Location</p>
-                <p className="text-ink">{profile.location}</p>
+                <p className="text-sm text-muted font-mono mb-2">Coursework</p>
+                <div className="flex flex-wrap gap-2">
+                  {education.coursework.map((c) => (
+                    <span
+                      key={c}
+                      className="text-xs font-mono px-2 py-1 rounded border border-white/10 text-muted"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <GraduationCap size={18} className="text-accent mt-0.5 shrink-0" />
-              <div>
-                <p className="text-sm text-muted font-mono">Education</p>
-                <p className="text-ink">{education.school}</p>
-                <p className="text-sm text-muted">{education.degree}</p>
-                <p className="text-sm text-muted">Graduating {education.graduation}</p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-muted font-mono mb-2">Coursework</p>
-              <div className="flex flex-wrap gap-2">
-                {education.coursework.map((c) => (
-                  <span
-                    key={c}
-                    className="text-xs font-mono px-2 py-1 rounded border border-border text-muted"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>

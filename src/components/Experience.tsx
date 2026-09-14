@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { experience, quotes } from '../data/content'
 import SectionHeading from './SectionHeading'
+import TiltCard from './TiltCard'
 
 export default function Experience() {
   return (
@@ -19,7 +20,7 @@ export default function Experience() {
               className="pl-8 relative"
             >
               <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg" />
-              <div className="glass glass-hover rounded-lg p-5">
+              <TiltCard className="glass glass-hover rounded-lg p-5">
                 <p className="font-mono text-xs text-muted">{e.period}</p>
                 <h3 className="text-lg font-semibold text-ink mt-1">{e.title}</h3>
                 <p className="text-accent-2 font-mono text-sm">
@@ -33,7 +34,7 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

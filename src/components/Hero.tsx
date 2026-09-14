@@ -3,6 +3,7 @@ import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Download, GraduationCap } from 'lucide-react'
 import { profile, quotes } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
+import TiltCard from './TiltCard'
 
 const reveal = {
   hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
@@ -140,30 +141,25 @@ export default function Hero() {
           </motion.a>
         </motion.div>
 
-        <motion.div
-          custom={6}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          whileHover={{ y: -6 }}
-          className="glass glass-hover mt-20 rounded-xl max-w-xl overflow-hidden"
-        >
-          <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-            <span className="ml-3 font-mono text-xs text-muted">whoami.py</span>
-          </div>
-          <pre className="font-mono text-xs sm:text-sm leading-relaxed p-5 overflow-x-auto">
-            <code>
-              <span className="text-muted"># five APIs. one engineer.</span>{'\n'}
-              <span className="text-accent-2">class</span> <span className="text-ink">Engineer</span>:{'\n'}
-              {'    '}<span className="text-accent-2">def</span> <span className="text-ink">__init__</span>(self):{'\n'}
-              {'        '}self.stack = [<span className="text-accent">"Flask"</span>, <span className="text-accent">"PostgreSQL"</span>, <span className="text-accent">"Redis"</span>, <span className="text-accent">"JWT"</span>]{'\n'}
-              {'        '}self.ships = <span className="text-accent-2">True</span>{'\n'}
-              {'        '}self.location = <span className="text-accent">"Baltimore, MD"</span>
-            </code>
-          </pre>
+        <motion.div custom={6} initial="hidden" animate="show" variants={reveal} className="mt-20 max-w-xl">
+          <TiltCard className="glass glass-hover rounded-xl overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+              <span className="ml-3 font-mono text-xs text-muted">whoami.py</span>
+            </div>
+            <pre className="font-mono text-xs sm:text-sm leading-relaxed p-5 overflow-x-auto">
+              <code>
+                <span className="text-muted"># five APIs. one engineer.</span>{'\n'}
+                <span className="text-accent-2">class</span> <span className="text-ink">Engineer</span>:{'\n'}
+                {'    '}<span className="text-accent-2">def</span> <span className="text-ink">__init__</span>(self):{'\n'}
+                {'        '}self.stack = [<span className="text-accent">"Flask"</span>, <span className="text-accent">"PostgreSQL"</span>, <span className="text-accent">"Redis"</span>, <span className="text-accent">"JWT"</span>]{'\n'}
+                {'        '}self.ships = <span className="text-accent-2">True</span>{'\n'}
+                {'        '}self.location = <span className="text-accent">"Baltimore, MD"</span>
+              </code>
+            </pre>
+          </TiltCard>
         </motion.div>
 
         <motion.p

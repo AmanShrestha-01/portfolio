@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Aman Shrestha',
-  role: 'Backend Engineer',
+  role: 'Software Engineer',
   tagline: 'Python · Real-Time Systems · API Design',
   location: 'Baltimore, MD',
   email: 'amanshrestha3003@gmail.com',

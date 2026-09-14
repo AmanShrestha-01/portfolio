@@ -31,11 +31,12 @@ export const profile = {
   status: 'Looking for backend engineering internships — Summer / Fall 2026',
 }
 
-export const quotes: string[] = [
-  'If not me, then who?',
-  'Memento mori. Memento vivere.',
-  "I don't have a Plan B — I'll make this happen.",
-]
+export const quotes = {
+  drive: 'If not me, then who?',
+  memento: 'Memento mori. Memento vivere.',
+  noPlanB: "I don't have a Plan B — I'll make this happen.",
+  heroCaption: 'Written to be read by a compiler and a recruiter.',
+}
 
 export type SkillCategory = {
   label: string

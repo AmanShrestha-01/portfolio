@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { skills } from '../data/content'
 import SectionHeading from './SectionHeading'
+import TiltCard from './TiltCard'
 
 export default function Skills() {
   return (
@@ -16,20 +17,20 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -3 }}
-              className="rounded-lg border border-border bg-surface p-5 hover:border-accent/50 transition-colors"
             >
-              <p className="font-mono text-xs text-accent mb-3 uppercase tracking-wider">{group.label}</p>
-              <div className="flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="text-sm px-2.5 py-1 rounded-md bg-surface-2 text-ink border border-border"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
+              <TiltCard className="glass glass-hover rounded-lg p-5 h-full">
+                <p className="font-mono text-xs text-accent mb-3 uppercase tracking-wider">{group.label}</p>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="text-sm px-2.5 py-1 rounded-md bg-white/[0.03] text-ink border border-white/10"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

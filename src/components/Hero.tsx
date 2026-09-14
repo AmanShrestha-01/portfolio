@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Download, GraduationCap } from 'lucide-react'
-import { profile } from '../data/content'
+import { profile, quotes } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
 
 const reveal = {
@@ -145,10 +145,10 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={reveal}
-          whileHover={{ y: -4 }}
-          className="mt-20 rounded-lg border border-border bg-surface/70 backdrop-blur max-w-xl overflow-hidden shadow-[0_0_0_1px_transparent] hover:shadow-[0_16px_50px_-12px_var(--color-accent-soft)] transition-shadow duration-500"
+          whileHover={{ y: -6 }}
+          className="glass glass-hover mt-20 rounded-xl max-w-xl overflow-hidden"
         >
-          <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-surface-2">
+          <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
             <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
@@ -165,6 +165,16 @@ export default function Hero() {
             </code>
           </pre>
         </motion.div>
+
+        <motion.p
+          custom={7}
+          initial="hidden"
+          animate="show"
+          variants={reveal}
+          className="mt-4 font-mono text-xs text-muted/70 max-w-xl"
+        >
+          — {quotes.heroCaption}
+        </motion.p>
       </motion.div>
     </section>
   )

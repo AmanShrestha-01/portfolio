@@ -26,7 +26,7 @@ export default function Contact() {
           transition={{ duration: 0.5, delay: 0.05 }}
           className="text-3xl sm:text-5xl font-bold text-ink tracking-tight"
         >
-          Let's build something.
+          Let's make something worth remembering.
         </motion.h2>
 
         <motion.p

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { GraduationCap, MapPin } from 'lucide-react'
-import { profile, education } from '../data/content'
+import { profile, education, quotes } from '../data/content'
 import SectionHeading from './SectionHeading'
 
 export default function About() {
@@ -24,12 +24,22 @@ export default function About() {
               </motion.p>
             ))}
 
+            <motion.p
+              initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: profile.bio.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-accent font-mono text-lg sm:text-xl pt-2"
+            >
+              {quotes.drive}
+            </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: profile.bio.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="pt-2"
+              transition={{ duration: 0.6, delay: profile.bio.length * 0.1 + 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-4"
             >
               <p className="text-sm text-muted font-mono mb-2">Interests</p>
               <div className="flex flex-wrap gap-2">
@@ -42,6 +52,7 @@ export default function About() {
                   </span>
                 ))}
               </div>
+              <p className="mt-4 text-sm text-muted italic">{quotes.memento}</p>
             </motion.div>
           </div>
 
@@ -50,7 +61,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-lg border border-border bg-surface p-6 space-y-5 h-fit"
+            className="glass glass-hover rounded-lg p-6 space-y-5 h-fit"
           >
             <div className="flex items-start gap-3">
               <MapPin size={18} className="text-accent mt-0.5 shrink-0" />

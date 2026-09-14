@@ -4,7 +4,7 @@ import SectionHeading from './SectionHeading'
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 sm:py-28 border-t border-border">
+    <section id="experience" className="py-28 sm:py-36 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading index="04" title="Experience" />
 
@@ -12,10 +12,10 @@ export default function Experience() {
           {experience.map((e, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -16, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="pl-8 relative"
             >
               <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg" />

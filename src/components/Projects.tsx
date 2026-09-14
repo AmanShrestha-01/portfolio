@@ -6,7 +6,7 @@ import SectionHeading from './SectionHeading'
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 sm:py-28 border-t border-border">
+    <section id="projects" className="py-28 sm:py-36 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           index="03"
@@ -18,10 +18,11 @@ export default function Projects() {
           {projects.map((p, i) => (
             <motion.div
               key={p.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: (i % 2) * 0.08 }}
+              transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
               className="group rounded-lg border border-border bg-surface overflow-hidden flex flex-col glow-border transition-shadow duration-300"
             >
               <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-surface-2">

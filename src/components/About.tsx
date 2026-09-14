@@ -5,7 +5,7 @@ import SectionHeading from './SectionHeading'
 
 export default function About() {
   return (
-    <section id="about" className="py-24 sm:py-28 border-t border-border">
+    <section id="about" className="py-28 sm:py-36 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading index="01" title="About" />
 
@@ -14,10 +14,10 @@ export default function About() {
             {profile.bio.map((p, i) => (
               <motion.p
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="text-muted leading-relaxed text-base sm:text-lg"
               >
                 {p}
@@ -25,10 +25,10 @@ export default function About() {
             ))}
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: profile.bio.length * 0.08 }}
+              transition={{ duration: 0.6, delay: profile.bio.length * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="pt-2"
             >
               <p className="text-sm text-muted font-mono mb-2">Interests</p>
@@ -46,10 +46,10 @@ export default function About() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="rounded-lg border border-border bg-surface p-6 space-y-5 h-fit"
           >
             <div className="flex items-start gap-3">

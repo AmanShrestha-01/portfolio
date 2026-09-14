@@ -1,32 +1,77 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Download, GraduationCap } from 'lucide-react'
 import { profile } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
+const reveal = {
+  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.1 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    filter: 'blur(0px)',
+    transition: { delay: 0.15 + i * 0.09, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   }),
 }
 
 export default function Hero() {
-  return (
-    <section id="top" className="relative pt-36 pb-24 sm:pt-44 sm:pb-32 overflow-hidden">
-      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-[120px]" />
+  const sectionRef = useRef<HTMLElement>(null)
+  const spotX = useMotionValue(50)
+  const spotY = useMotionValue(30)
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    spotX.set(((e.clientX - rect.left) / rect.width) * 100)
+    spotY.set(((e.clientY - rect.top) / rect.height) * 100)
+  }
+
+  return (
+    <section
+      ref={sectionRef}
+      id="top"
+      onMouseMove={handleMouseMove}
+      className="relative pt-40 pb-32 sm:pt-56 sm:pb-44 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
+
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 opacity-70 pointer-events-none"
+        style={{
+          background: useTransform(
+            [spotX, spotY],
+            ([x, y]: number[]) =>
+              `radial-gradient(600px circle at ${x}% ${y}%, var(--color-accent-soft), transparent 70%)`
+          ),
+        }}
+      />
+
+      <motion.div
+        aria-hidden
+        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
+        animate={{ x: [0, 40, -20, 0], y: [0, 20, -10, 0], scale: [1, 1.08, 0.96, 1] }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      <motion.div
+        className="relative mx-auto max-w-6xl px-5 sm:px-8"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
         <motion.p
           custom={0}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
-          className="font-mono text-sm text-accent mb-5 flex items-center gap-2"
+          variants={reveal}
+          className="font-mono text-xs uppercase tracking-[0.15em] text-muted mb-8 flex items-center gap-2"
         >
-          <span className="w-2 h-2 rounded-full bg-accent inline-block animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block animate-pulse" />
           {profile.status}
         </motion.p>
 
@@ -34,27 +79,28 @@ export default function Hero() {
           custom={1}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-ink max-w-3xl"
+          variants={reveal}
+          className="text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight text-ink leading-[0.95] max-w-4xl"
         >
           {profile.name}
         </motion.h1>
 
-        <motion.p
+        <motion.div
           custom={2}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
-          className="mt-4 font-mono text-lg sm:text-xl text-accent-2"
+          variants={reveal}
+          className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-lg sm:text-xl"
         >
-          {profile.role} <span className="text-muted">· {profile.tagline}</span>
-        </motion.p>
+          <span className="text-accent-2">{profile.role}</span>
+          <span className="text-muted text-base">· {profile.tagline}</span>
+        </motion.div>
 
         <motion.p
           custom={3}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
+          variants={reveal}
           className="mt-3 font-mono text-sm text-muted flex items-center gap-2"
         >
           <GraduationCap size={15} className="text-accent" /> {profile.eduLine}
@@ -64,38 +110,43 @@ export default function Hero() {
           custom={4}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
-          className="mt-6 max-w-2xl text-base sm:text-lg text-muted leading-relaxed"
+          variants={reveal}
+          className="mt-8 max-w-2xl text-lg sm:text-xl text-muted leading-relaxed"
         >
           {profile.pitch}
         </motion.p>
 
-        <motion.div custom={5} initial="hidden" animate="show" variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-          <a
+        <motion.div custom={5} initial="hidden" animate="show" variants={reveal} className="mt-12 flex flex-wrap gap-4">
+          <motion.a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded-md bg-accent text-black font-mono text-sm font-semibold px-5 py-3 hover:brightness-110 transition"
+            whileHover={{ scale: 1.03, y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 rounded-md bg-accent text-black font-mono text-sm font-semibold px-5 py-3 hover:brightness-110 transition-[filter]"
           >
             View Projects <ArrowRight size={16} />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href={profile.resumeUrl}
             download={profile.resumeFileName}
+            whileHover={{ scale: 1.03, y: -1 }}
+            whileTap={{ scale: 0.98 }}
             onClick={(e) => {
               e.preventDefault()
               downloadResume(profile.resumeUrl, profile.resumeFileName)
             }}
-            className="inline-flex items-center gap-2 rounded-md border border-border text-ink font-mono text-sm px-5 py-3 hover:border-accent hover:text-accent transition"
+            className="inline-flex items-center gap-2 rounded-md border border-border text-ink font-mono text-sm px-5 py-3 hover:border-accent hover:text-accent transition-colors"
           >
             <Download size={16} /> Download Resume
-          </a>
+          </motion.a>
         </motion.div>
 
         <motion.div
           custom={6}
           initial="hidden"
           animate="show"
-          variants={fadeUp}
-          className="mt-16 rounded-lg border border-border bg-surface/70 backdrop-blur max-w-xl overflow-hidden"
+          variants={reveal}
+          whileHover={{ y: -4 }}
+          className="mt-20 rounded-lg border border-border bg-surface/70 backdrop-blur max-w-xl overflow-hidden shadow-[0_0_0_1px_transparent] hover:shadow-[0_16px_50px_-12px_var(--color-accent-soft)] transition-shadow duration-500"
         >
           <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-surface-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
@@ -114,7 +165,7 @@ export default function Hero() {
             </code>
           </pre>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

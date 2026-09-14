@@ -4,7 +4,7 @@ import SectionHeading from './SectionHeading'
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 sm:py-28 border-t border-border">
+    <section id="skills" className="py-28 sm:py-36 border-t border-border">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading index="02" title="Skills" subtitle="The stack I reach for when building and shipping backend systems." />
 
@@ -12,10 +12,11 @@ export default function Skills() {
           {skills.map((group, i) => (
             <motion.div
               key={group.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
+              transition={{ duration: 0.6, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -3 }}
               className="rounded-lg border border-border bg-surface p-5 hover:border-accent/50 transition-colors"
             >
               <p className="font-mono text-xs text-accent mb-3 uppercase tracking-wider">{group.label}</p>

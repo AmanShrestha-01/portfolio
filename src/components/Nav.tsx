@@ -69,6 +69,15 @@ export default function Nav() {
             <FaLinkedin size={16} />
           </a>
           <a
+            href={profile.instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            className="text-muted hover:text-ink transition-colors"
+          >
+            <FaInstagram size={16} />
+          </a>
+          <a
             href={profile.resumeUrl}
             download={profile.resumeFileName}
             onClick={(e) => {

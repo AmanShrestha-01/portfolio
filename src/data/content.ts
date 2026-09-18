@@ -39,6 +39,13 @@ export const profile = {
   status: 'Open to SWE & ML internships / co-ops — Summer / Fall',
 }
 
+export const offClock = [
+  { src: '/images/singing.webp', label: 'Voice & Guitar', caption: "Mostly when no one's listening.", alt: 'Aman playing acoustic guitar under a warm backlight' },
+  { src: '/images/gym.webp', label: 'Weight Room', caption: 'A plan, not vibes.', alt: 'Aman in the gym between sets' },
+  { src: '/images/pickleball.webp', label: 'Pickleball', caption: 'Competitive by default.', alt: 'Aman walking up to the net on a pickleball court' },
+  { src: '/images/chess.webp', label: 'Chess', caption: 'Thinking three moves out.', alt: 'A chessboard mid-game beside an open book of chess studies' },
+]
+
 export const quotes = {
   drive: 'If not me, then who?',
   memento: 'Memento mori. Memento vivere.',

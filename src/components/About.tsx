@@ -3,6 +3,7 @@ import { profile, education, quotes, focus, stats } from '../data/content'
 import SectionHeading from './SectionHeading'
 import ScrollWords from './ScrollWords'
 import TiltCard from './TiltCard'
+import OffTheClock from './OffTheClock'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -87,7 +88,7 @@ export default function About() {
           </div>
 
           <div className="md:col-span-7 lg:col-span-7 lg:col-start-6 space-y-6">
-            {profile.bio.map((p, i) => (
+            {profile.bio.slice(0, -1).map((p, i) => (
               <motion.p
                 key={i}
                 initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
@@ -110,25 +111,10 @@ export default function About() {
               “{quotes.drive}”
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.7, ease }}
-              className="pt-6 border-t border-white/[0.07]"
-            >
-              <p className="eyebrow text-muted mb-4">Off the clock</p>
-              <div className="flex flex-wrap gap-2">
-                {profile.interests.map((interest) => (
-                  <span key={interest} className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-muted">
-                    {interest}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-6 text-sm text-muted italic">{quotes.memento}</p>
-            </motion.div>
           </div>
         </div>
+
+        <OffTheClock />
       </div>
     </section>
   )

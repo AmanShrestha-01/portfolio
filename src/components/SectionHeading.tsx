@@ -21,7 +21,7 @@ export default function SectionHeading({
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8, ease }}
-        className="md:col-span-3 eyebrow text-muted pt-3 flex items-center gap-3"
+        className="md:col-span-3 self-start eyebrow text-muted pt-3 flex items-center gap-3"
       >
         <span className="text-ink">({index})</span>
         <span className="h-px w-6 bg-white/20" />

@@ -5,18 +5,21 @@ import { profile, education } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
 import NeuralField from './NeuralField'
 
+const ease = [0.16, 1, 0.3, 1] as const
+
 const reveal = {
   hidden: { opacity: 0, y: 24, filter: 'blur(10px)' },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { delay: 1.5 + i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay: 1.5 + i * 0.1, duration: 0.9, ease },
   }),
 }
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const portraitRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -24,100 +27,147 @@ export default function Hero() {
   })
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 120])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
-  const fieldScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
-  const fieldOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0])
+  const fieldOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+
+  const ring = `${profile.role} · Machine Learning · ${profile.location} · Class of ${education.graduation.slice(-4)} · `
 
   return (
     <section
       ref={sectionRef}
       id="top"
-      className="relative h-[100svh] min-h-[640px] overflow-hidden flex flex-col"
+      className="relative h-[100svh] min-h-[720px] overflow-hidden flex flex-col"
     >
-      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_55%_45%_at_50%_40%,black,transparent)]" />
-      <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[46rem] h-[46rem] max-w-[120vw] rounded-full bg-accent-2/[0.06] blur-[140px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_65%_45%,black,transparent)]" />
 
-      <motion.div className="absolute inset-0" style={{ scale: fieldScale, opacity: fieldOpacity }}>
+      {/* particle sculpture, centred on the portrait so it shatters and reforms around it */}
+      <motion.div className="absolute inset-0" style={{ opacity: fieldOpacity }}>
         <motion.div
           className="w-full h-full"
-          initial={{ opacity: 0, scale: 0.9, filter: 'blur(12px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ delay: 1.2, duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ delay: 1.2, duration: 2, ease }}
         >
-          <NeuralField className="w-full h-full" />
+          <NeuralField anchorRef={portraitRef} spread={1.45} className="w-full h-full" />
         </motion.div>
       </motion.div>
 
       <motion.div
-        className="relative flex-1 flex flex-col justify-end items-center text-center px-5 pb-24 sm:pb-16"
+        className="relative flex-1 mx-auto w-full max-w-7xl px-5 sm:px-8 pt-24 pb-10 grid lg:grid-cols-12 items-center gap-10 lg:gap-6"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        <motion.p
-          custom={0}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="eyebrow !tracking-[0.1em] sm:!tracking-[0.18em] whitespace-nowrap text-muted mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-bg/70 backdrop-blur-xl px-3.5 py-1.5"
-        >
-          <span className="relative flex w-1.5 h-1.5">
-            <span className="absolute inset-0 rounded-full bg-live animate-ping opacity-60" />
-            <span className="relative w-1.5 h-1.5 rounded-full bg-live" />
-          </span>
-          {profile.status.split(' — ')[0]}
-          <span className="hidden sm:inline">— {profile.status.split(' — ')[1]}</span>
-        </motion.p>
-
-        <motion.h1
-          custom={1}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="display text-sheen text-[17vw] sm:text-[11vw] lg:text-[9.5rem] max-w-6xl"
-        >
-          {profile.headline[0]}
-          <br />
-          {profile.headline[1]}
-        </motion.h1>
-
-        <motion.p
-          custom={2}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="mt-7 max-w-md text-[0.95rem] sm:text-base text-muted leading-relaxed"
-        >
-          {profile.heroLine}
-        </motion.p>
-
-        <motion.div
-          custom={3}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="mt-9 flex flex-wrap items-center justify-center gap-3"
-        >
-          <motion.a
-            href="#projects"
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="group inline-flex items-center gap-2 rounded-full bg-ink text-bg text-sm font-medium pl-5 pr-4 py-2.5 shadow-[0_0_40px_-8px_rgba(255,255,255,0.35)]"
+        <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <motion.p
+            custom={1}
+            initial="hidden"
+            animate="show"
+            variants={reveal}
+            className="eyebrow !tracking-[0.1em] sm:!tracking-[0.18em] whitespace-nowrap text-muted mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-bg/70 backdrop-blur-xl px-3.5 py-1.5"
           >
-            See the work
-            <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
-          </motion.a>
-          <motion.a
-            href={profile.resumeUrl}
-            download={profile.resumeFileName}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={(e) => {
-              e.preventDefault()
-              downloadResume(profile.resumeUrl, profile.resumeFileName)
-            }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-md text-ink text-sm pl-5 pr-4 py-2.5 hover:border-white/35 transition-colors"
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inset-0 rounded-full bg-live animate-ping opacity-60" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-live" />
+            </span>
+            {profile.status.split(' — ')[0]}
+            <span className="hidden sm:inline">— {profile.status.split(' — ')[1]}</span>
+          </motion.p>
+
+          <motion.h1
+            custom={2}
+            initial="hidden"
+            animate="show"
+            variants={reveal}
+            className="display text-sheen text-[17vw] sm:text-[12vw] lg:text-[8.2rem] xl:text-[9rem]"
           >
-            Resume <ArrowDown size={14} />
-          </motion.a>
-        </motion.div>
+            {profile.headline[0]}
+            <br />
+            {profile.headline[1]}
+          </motion.h1>
+
+          <motion.p
+            custom={3}
+            initial="hidden"
+            animate="show"
+            variants={reveal}
+            className="mt-7 max-w-md text-[0.95rem] sm:text-base text-muted leading-relaxed"
+          >
+            {profile.heroLine}
+          </motion.p>
+
+          <motion.div
+            custom={4}
+            initial="hidden"
+            animate="show"
+            variants={reveal}
+            className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-3"
+          >
+            <motion.a
+              href="#projects"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex items-center gap-2 rounded-full bg-ink text-bg text-sm font-medium pl-5 pr-4 py-2.5 shadow-[0_0_40px_-8px_rgba(255,255,255,0.35)]"
+            >
+              See the work
+              <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
+            </motion.a>
+            <motion.a
+              href={profile.resumeUrl}
+              download={profile.resumeFileName}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={(e) => {
+                e.preventDefault()
+                downloadResume(profile.resumeUrl, profile.resumeFileName)
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-md text-ink text-sm pl-5 pr-4 py-2.5 hover:border-white/35 transition-colors"
+            >
+              Resume <ArrowDown size={14} />
+            </motion.a>
+          </motion.div>
+        </div>
+
+        <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end lg:pr-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, filter: 'blur(14px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ delay: 1.35, duration: 1.4, ease }}
+            className="relative"
+          >
+            {/* slowly rotating ring of text around the portrait */}
+            <motion.svg
+              aria-hidden
+              viewBox="0 0 200 200"
+              className="absolute -inset-[13%] w-[126%] h-[126%] text-muted/70"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+            >
+              <defs>
+                <path id="ring" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0" />
+              </defs>
+              <text className="font-mono uppercase" fontSize="6.2" fill="currentColor">
+                <textPath href="#ring" textLength="574" lengthAdjust="spacing">
+                  {ring}
+                </textPath>
+              </text>
+            </motion.svg>
+
+            <div
+              ref={portraitRef}
+              className="group relative w-44 h-44 sm:w-60 sm:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[24rem] xl:h-[24rem] rounded-full overflow-hidden ring-1 ring-white/15 shadow-[0_40px_120px_-30px_rgba(169,196,220,0.35)]"
+            >
+              <img
+                src="/images/portrait.webp"
+                alt={`Portrait of ${profile.name}`}
+                width={900}
+                height={900}
+                fetchPriority="high"
+                className="w-full h-full object-cover grayscale contrast-[1.05] brightness-95 scale-105 transition-[filter,transform] duration-[1200ms] ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-100"
+              />
+              {/* edge falloff so the photo sinks into the page instead of sitting on it */}
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(6,6,7,0.55)_100%)] pointer-events-none" />
+              <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
 
       <motion.div

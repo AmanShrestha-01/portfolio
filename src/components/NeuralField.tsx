@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 
 // Hero centerpiece: a particle sculpture that cycles through ML-flavoured shapes
 // (sphere → neural net → loss landscape → torus knot), shattering and reforming
@@ -115,7 +115,16 @@ const MORPH = 2.8 // seconds for shatter + reform
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 
-export default function NeuralField({ className = '' }: { className?: string }) {
+export default function NeuralField({
+  className = '',
+  anchorRef,
+  spread = 1.35,
+}: {
+  className?: string
+  // when given, the sculpture centres on this element and sizes itself around it
+  anchorRef?: RefObject<HTMLElement | null>
+  spread?: number
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -208,9 +217,17 @@ export default function NeuralField({ className = '' }: { className?: string }) 
       const cp = Math.cos(pitch)
       const sp = Math.sin(pitch)
 
-      const scale = Math.min(w, h) * (small ? 0.3 : 0.24)
-      const ox = w / 2
-      const oy = h * (small ? 0.3 : 0.33)
+      let scale = Math.min(w, h) * (small ? 0.3 : 0.24)
+      let ox = w / 2
+      let oy = h * (small ? 0.3 : 0.33)
+      const anchor = anchorRef?.current
+      if (anchor) {
+        const a = anchor.getBoundingClientRect()
+        const c = canvas.getBoundingClientRect()
+        ox = a.left - c.left + a.width / 2
+        oy = a.top - c.top + a.height / 2
+        scale = (a.width / 2) * spread
+      }
       const camera = 3.2
 
       ctx.clearRect(0, 0, w, h)
@@ -292,7 +309,7 @@ export default function NeuralField({ className = '' }: { className?: string }) 
       window.removeEventListener('pointermove', onMove)
       document.removeEventListener('pointerleave', onLeave)
     }
-  }, [])
+  }, [anchorRef, spread])
 
   return <canvas ref={canvasRef} aria-hidden className={className} />
 }

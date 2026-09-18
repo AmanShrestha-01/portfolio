@@ -14,8 +14,8 @@ export default function TiltCard({
   const springX = useSpring(x, { stiffness: 200, damping: 20 })
   const springY = useSpring(y, { stiffness: 200, damping: 20 })
 
-  const rotateX = useTransform(springY, [0, 1], [7, -7])
-  const rotateY = useTransform(springX, [0, 1], [-7, 7])
+  const rotateX = useTransform(springY, [0, 1], [4, -4])
+  const rotateY = useTransform(springX, [0, 1], [-4, 4])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = ref.current?.getBoundingClientRect()
@@ -30,7 +30,7 @@ export default function TiltCard({
   }
 
   return (
-    <div className="perspective">
+    <div className="perspective h-full">
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}

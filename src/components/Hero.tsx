@@ -1,17 +1,17 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Download, GraduationCap } from 'lucide-react'
-import { profile, quotes } from '../data/content'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { profile, education } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
-import TiltCard from './TiltCard'
+import NeuralField from './NeuralField'
 
 const reveal = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
+  hidden: { opacity: 0, y: 24, filter: 'blur(10px)' },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { delay: 0.15 + i * 0.09, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay: 1.5 + i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
   }),
 }
 
@@ -22,25 +22,33 @@ export default function Hero() {
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const fieldScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
+  const fieldOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0])
 
   return (
     <section
       ref={sectionRef}
       id="top"
-      className="relative pt-40 pb-32 sm:pt-56 sm:pb-44 overflow-hidden"
+      className="relative h-[100svh] min-h-[640px] overflow-hidden flex flex-col"
     >
-      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
+      <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_55%_45%_at_50%_40%,black,transparent)]" />
+      <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[46rem] h-[46rem] max-w-[120vw] rounded-full bg-accent-2/[0.06] blur-[140px] pointer-events-none" />
+
+      <motion.div className="absolute inset-0" style={{ scale: fieldScale, opacity: fieldOpacity }}>
+        <motion.div
+          className="w-full h-full"
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ delay: 1.2, duration: 2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <NeuralField className="w-full h-full" />
+        </motion.div>
+      </motion.div>
 
       <motion.div
-        aria-hidden
-        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-        animate={{ x: [0, 40, -20, 0], y: [0, 20, -10, 0], scale: [1, 1.08, 0.96, 1] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="relative mx-auto max-w-6xl px-5 sm:px-8"
+        className="relative flex-1 flex flex-col justify-end items-center text-center px-5 pb-24 sm:pb-16"
         style={{ y: contentY, opacity: contentOpacity }}
       >
         <motion.p
@@ -48,10 +56,14 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="font-mono text-xs uppercase tracking-[0.15em] text-muted mb-8 flex items-center gap-2"
+          className="eyebrow !tracking-[0.1em] sm:!tracking-[0.18em] whitespace-nowrap text-muted mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-bg/70 backdrop-blur-xl px-3.5 py-1.5"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block animate-pulse" />
-          {profile.status}
+          <span className="relative flex w-1.5 h-1.5">
+            <span className="absolute inset-0 rounded-full bg-live animate-ping opacity-60" />
+            <span className="relative w-1.5 h-1.5 rounded-full bg-live" />
+          </span>
+          {profile.status.split(' — ')[0]}
+          <span className="hidden sm:inline">— {profile.status.split(' — ')[1]}</span>
         </motion.p>
 
         <motion.h1
@@ -59,96 +71,79 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="font-mono text-6xl sm:text-8xl lg:text-[8rem] font-bold tracking-tight text-ink leading-[0.95] max-w-4xl"
+          className="display text-sheen text-[17vw] sm:text-[11vw] lg:text-[9.5rem] max-w-6xl"
         >
-          {profile.name}
+          {profile.headline[0]}
+          <br />
+          {profile.headline[1]}
         </motion.h1>
 
-        <motion.div
+        <motion.p
           custom={2}
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-lg sm:text-xl"
+          className="mt-7 max-w-md text-[0.95rem] sm:text-base text-muted leading-relaxed"
         >
-          <span className="text-accent-2">{profile.role}</span>
-          <span className="text-muted text-base">· {profile.tagline}</span>
-        </motion.div>
+          {profile.heroLine}
+        </motion.p>
 
-        <motion.p
+        <motion.div
           custom={3}
           initial="hidden"
           animate="show"
           variants={reveal}
-          className="mt-3 font-mono text-sm text-muted flex items-center gap-2"
+          className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
-          <GraduationCap size={15} className="text-accent" /> {profile.eduLine}
-        </motion.p>
-
-        <motion.p
-          custom={4}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="mt-8 max-w-2xl text-lg sm:text-xl text-muted leading-relaxed"
-        >
-          {profile.pitch}
-        </motion.p>
-
-        <motion.div custom={5} initial="hidden" animate="show" variants={reveal} className="mt-12 flex flex-wrap gap-4">
           <motion.a
             href="#projects"
-            whileHover={{ scale: 1.03, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 rounded-md bg-accent text-black font-mono text-sm font-semibold px-5 py-3 hover:brightness-110 transition-[filter]"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="group inline-flex items-center gap-2 rounded-full bg-ink text-bg text-sm font-medium pl-5 pr-4 py-2.5 shadow-[0_0_40px_-8px_rgba(255,255,255,0.35)]"
           >
-            View Projects <ArrowRight size={16} />
+            See the work
+            <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
           </motion.a>
           <motion.a
             href={profile.resumeUrl}
             download={profile.resumeFileName}
-            whileHover={{ scale: 1.03, y: -1 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
             onClick={(e) => {
               e.preventDefault()
               downloadResume(profile.resumeUrl, profile.resumeFileName)
             }}
-            className="inline-flex items-center gap-2 rounded-md border border-border text-ink font-mono text-sm px-5 py-3 hover:border-accent hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-md text-ink text-sm pl-5 pr-4 py-2.5 hover:border-white/35 transition-colors"
           >
-            <Download size={16} /> Download Resume
+            Resume <ArrowDown size={14} />
           </motion.a>
         </motion.div>
+      </motion.div>
 
-        <motion.div custom={6} initial="hidden" animate="show" variants={reveal} className="mt-20 max-w-xl">
-          <TiltCard className="glass glass-hover rounded-xl overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-              <span className="ml-3 font-mono text-xs text-muted">whoami.py</span>
-            </div>
-            <pre className="font-mono text-xs sm:text-sm leading-relaxed p-5 overflow-x-auto">
-              <code>
-                <span className="text-muted"># five APIs. one engineer.</span>{'\n'}
-                <span className="text-accent-2">class</span> <span className="text-ink">Engineer</span>:{'\n'}
-                {'    '}<span className="text-accent-2">def</span> <span className="text-ink">__init__</span>(self):{'\n'}
-                {'        '}self.stack = [<span className="text-accent">"Flask"</span>, <span className="text-accent">"PostgreSQL"</span>, <span className="text-accent">"Redis"</span>, <span className="text-accent">"JWT"</span>]{'\n'}
-                {'        '}self.ships = <span className="text-accent-2">True</span>{'\n'}
-                {'        '}self.location = <span className="text-accent">"Baltimore, MD"</span>
-              </code>
-            </pre>
-          </TiltCard>
-        </motion.div>
-
-        <motion.p
-          custom={7}
-          initial="hidden"
-          animate="show"
-          variants={reveal}
-          className="mt-4 font-mono text-xs text-muted/70 max-w-xl"
-        >
-          — {quotes.heroCaption}
-        </motion.p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.2, duration: 1 }}
+        className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 pb-6 grid grid-cols-3 items-end eyebrow text-muted/70 !text-[0.6rem]"
+      >
+        <span className="hidden sm:block">
+          {profile.coords}
+          <br />
+          {profile.location}
+        </span>
+        <a href="#about" className="col-start-2 justify-self-center flex flex-col items-center gap-2 hover:text-ink transition-colors">
+          Scroll
+          <motion.span
+            className="block w-px h-6 bg-gradient-to-b from-muted to-transparent"
+            animate={{ scaleY: [0.3, 1, 0.3], originY: 0 }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </a>
+        <span className="hidden sm:block justify-self-end text-right">
+          B.S. Computer Science
+          <br />
+          {education.school} · &rsquo;{education.graduation.slice(-2)}
+        </span>
       </motion.div>
     </section>
   )

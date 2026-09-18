@@ -1,7 +1,11 @@
 export const profile = {
   name: 'Aman Shrestha',
   role: 'Software Engineer',
-  tagline: 'Python · Real-Time Systems · API Design',
+  tagline: 'Backend Systems · Machine Learning',
+  headline: ['Aman', 'Shrestha.'],
+  coords: '39.34° N, 76.58° W',
+  heroLine:
+    "Software engineer. I build backends that hold up in production — and I'm taking that same discipline into machine learning.",
   location: 'Baltimore, MD',
   email: 'amanshrestha3003@gmail.com',
   github: 'https://github.com/AmanShrestha-01',
@@ -12,11 +16,13 @@ export const profile = {
   resumeFileName: "Aman's Professional Resume.pdf",
   eduLine: 'B.S. Computer Science — Morgan State University, Class of 2028',
   pitch:
-    "I build software from scratch and ship it live — right now that's mostly backend: REST APIs with real auth, real databases, and real edge cases handled.",
+    "I build production backends in Python — real auth, real databases, deployed and running. Now I'm going deep on machine learning: the math underneath models, and the systems that serve them.",
+  manifesto:
+    'I like problems with a database underneath, a real user on the other end of the request — and, more and more, a model in the middle.',
   bio: [
-    "I like problems with a database underneath and a real user on the other end of the request — which is why I've spent the past year focused on backend: architecture decisions, edge cases, and five production APIs shipped from scratch, all self-directed.",
-    "Backend is where I've gone deepest, but not where I've stayed narrow. I've worked through data structures and algorithms, built with real object-oriented design, and shipped a full-stack app with a Next.js frontend. Backend is my specialization for now — I expect that to keep evolving.",
+    "That's why I've spent the past year focused on backend: architecture decisions, edge cases, and five production APIs shipped from scratch, all self-directed.",
     "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
+    "Where I'm heading is machine learning. Two of my APIs already put an LLM behind real auth, per-user rate limits, and cost controls — and building them pulled me underneath the API call. I'm now working through the math (linear algebra, probability, optimization) and learning to build models with NumPy, scikit-learn, and PyTorch. The goal: engineer the systems that train and serve models, not just call them.",
     "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing when no one's listening, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
   interests: [
@@ -30,7 +36,7 @@ export const profile = {
     'Psychology',
     'Systems Design',
   ],
-  status: 'Looking for software engineering internships — Summer / Fall',
+  status: 'Open to SWE & ML internships / co-ops — Summer / Fall',
 }
 
 export const quotes = {
@@ -39,6 +45,22 @@ export const quotes = {
   noPlanB: "I don't have a Plan B — I'll make this happen.",
   heroCaption: 'Written to be read by a compiler and a recruiter.',
 }
+
+export const focus = {
+  title: 'Machine Learning',
+  points: [
+    { k: 'Math', v: 'Linear algebra, probability, optimization' },
+    { k: 'Modeling', v: 'NumPy → scikit-learn → PyTorch' },
+    { k: 'Systems', v: 'Serving models behind production APIs' },
+  ],
+}
+
+export const stats = [
+  { value: '6', label: 'Projects shipped' },
+  { value: '5', label: 'Production APIs' },
+  { value: '2', label: 'LLM-powered services' },
+  { value: '20+', label: 'Endpoints in one API' },
+]
 
 export type SkillCategory = {
   label: string
@@ -49,6 +71,10 @@ export const skills: SkillCategory[] = [
   { label: 'Languages', items: ['Python', 'Java', 'C', 'C++', 'JavaScript', 'SQL'] },
   { label: 'Foundations', items: ['Data Structures & Algorithms', 'Object-Oriented Design'] },
   { label: 'Frameworks', items: ['Flask', 'Flask-SocketIO', 'SQLAlchemy', 'Pytest', 'Next.js', 'React'] },
+  {
+    label: 'ML / AI',
+    items: ['LLM Integration (Claude API)', 'Prompt Design', 'AI Rate Limiting & Cost Control'],
+  },
   { label: 'Databases', items: ['PostgreSQL', 'Redis', 'SQLite'] },
   { label: 'Infrastructure', items: ['Docker', 'Docker Compose', 'Render', 'GitHub Actions CI/CD'] },
   {
@@ -57,11 +83,14 @@ export const skills: SkillCategory[] = [
   },
 ]
 
+export const learning = ['PyTorch', 'scikit-learn', 'NumPy & pandas', 'Linear Algebra', 'Probability & Statistics']
+
 export type Project = {
   slug: string
   name: string
   year: string
   status: 'Live' | 'Deployed'
+  tag?: 'AI'
   summary: string
   bullets: string[]
   stack: string[]
@@ -85,6 +114,20 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/AmanShrestha-01/Real-Time-Chat-Service',
   },
   {
+    slug: 'ai-study-assistant-api',
+    name: 'AI Study Assistant API',
+    year: '2025',
+    status: 'Deployed',
+    summary:
+      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides.',
+    bullets: [
+      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides; per-user rate limits to manage AI costs',
+    ],
+    stack: ['Flask', 'SQLAlchemy', 'Claude AI', 'JWT', 'Swagger'],
+    githubUrl: 'https://github.com/AmanShrestha-01/AI-Powered-Study-Assistant-API',
+    tag: 'AI',
+  },
+  {
     slug: 'e-commerce-platform',
     name: 'E-Commerce Platform',
     year: '2025',
@@ -99,6 +142,20 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/AmanShrestha-01/E-Commerce-API',
   },
   {
+    slug: 'ai-nutriplan',
+    name: 'AI-NutriPlan',
+    year: '2025',
+    status: 'Deployed',
+    summary:
+      'A nutrition-tracking API where users set macro goals, log intake, and receive AI-generated meal plans via Claude.',
+    bullets: [
+      'Meal-tracking API where users set macro goals, log daily intake, and receive AI-generated meal plans personalized to their targets via Claude',
+    ],
+    stack: ['Flask', 'SQLAlchemy', 'SQLite', 'Claude AI', 'JWT', 'Swagger'],
+    githubUrl: 'https://github.com/AmanShrestha-01/NutriPlan-AI',
+    tag: 'AI',
+  },
+  {
     slug: 'newari-ghar',
     name: 'Newari-Ghar',
     year: '2026',
@@ -111,32 +168,6 @@ export const projects: Project[] = [
     ],
     stack: ['Next.js', 'React', 'Express', 'Node.js'],
     githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
-  },
-  {
-    slug: 'ai-nutriplan',
-    name: 'AI-NutriPlan',
-    year: '2025',
-    status: 'Deployed',
-    summary:
-      'A nutrition-tracking API where users set macro goals, log intake, and receive AI-generated meal plans via Claude.',
-    bullets: [
-      'Meal-tracking API where users set macro goals, log daily intake, and receive AI-generated meal plans personalized to their targets via Claude',
-    ],
-    stack: ['Flask', 'SQLAlchemy', 'SQLite', 'Claude AI', 'JWT', 'Swagger'],
-    githubUrl: 'https://github.com/AmanShrestha-01/NutriPlan-AI',
-  },
-  {
-    slug: 'ai-study-assistant-api',
-    name: 'AI Study Assistant API',
-    year: '2025',
-    status: 'Deployed',
-    summary:
-      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides.',
-    bullets: [
-      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides; per-user rate limits to manage AI costs',
-    ],
-    stack: ['Flask', 'SQLAlchemy', 'Claude AI', 'JWT', 'Swagger'],
-    githubUrl: 'https://github.com/AmanShrestha-01/AI-Powered-Study-Assistant-API',
   },
   {
     slug: 'bookmarks-rest-api',

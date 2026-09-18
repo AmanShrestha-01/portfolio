@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, Download } from 'lucide-react'
+import { Menu, X, ArrowDown } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { profile } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
@@ -7,7 +7,7 @@ import { downloadResume } from '../utils/downloadResume'
 const links = [
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
+  { href: '#projects', label: 'Work' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ]
@@ -25,54 +25,48 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/[0.04] backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.5)]'
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled || open
+          ? 'bg-bg/70 backdrop-blur-2xl border-b border-white/[0.06]'
           : 'border-b border-transparent'
       }`}
     >
-      <nav className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
-        <a href="#top" className="font-mono text-sm text-ink flex items-center gap-2 group">
-          <span className="text-accent">$</span>
-          <span className="group-hover:text-accent transition-colors">Aman Shrestha</span>
-          <span className="animate-pulse text-accent">_</span>
+      <nav className="mx-auto max-w-7xl px-5 sm:px-8 h-16 grid grid-cols-[1fr_auto] md:grid-cols-3 items-center">
+        <a href="#top" className="flex items-center gap-2.5 group w-fit">
+          <span className="relative w-3.5 h-3.5 rounded-full border-[1.5px] border-ink grid place-items-center">
+            <span className="w-1 h-1 rounded-full bg-ink group-hover:scale-150 transition-transform" />
+          </span>
+          <span className="text-[0.7rem] font-semibold tracking-[0.2em] uppercase text-ink">
+            Aman Shrestha
+          </span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8 font-mono text-sm text-muted">
+        <div className="hidden md:flex items-center justify-center gap-7 text-[0.8rem] text-muted">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-accent transition-colors">
+            <a key={l.href} href={l.href} className="hover:text-ink transition-colors">
               {l.label}
             </a>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center justify-end gap-5">
           <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
-            className="text-muted hover:text-accent transition-colors"
+            className="text-muted hover:text-ink transition-colors"
           >
-            <FaGithub size={18} />
+            <FaGithub size={16} />
           </a>
           <a
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="text-muted hover:text-accent transition-colors"
+            className="text-muted hover:text-ink transition-colors"
           >
-            <FaLinkedin size={18} />
-          </a>
-          <a
-            href={profile.instagram}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Instagram"
-            className="text-muted hover:text-accent transition-colors"
-          >
-            <FaInstagram size={18} />
+            <FaLinkedin size={16} />
           </a>
           <a
             href={profile.resumeUrl}
@@ -81,41 +75,41 @@ export default function Nav() {
               e.preventDefault()
               downloadResume(profile.resumeUrl, profile.resumeFileName)
             }}
-            className="inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-md border border-border text-ink hover:border-accent hover:text-accent transition-colors"
+            className="inline-flex items-center gap-1.5 text-[0.75rem] px-3.5 py-1.5 rounded-full border border-white/15 text-ink hover:bg-ink hover:text-bg transition-colors"
           >
-            <Download size={14} /> Resume
+            Resume <ArrowDown size={12} />
           </a>
         </div>
 
         <button
-          className="md:hidden text-ink"
+          className="md:hidden text-ink justify-self-end"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
       {open && (
-        <div className="md:hidden bg-bg border-b border-border px-5 pb-6 pt-2 flex flex-col gap-4 font-mono text-sm">
+        <div className="md:hidden px-5 pb-8 pt-4 flex flex-col gap-5">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-muted hover:text-accent transition-colors"
+              className="display text-4xl text-ink hover:text-muted transition-colors"
             >
               {l.label}
             </a>
           ))}
-          <div className="flex items-center gap-5 pt-2">
-            <a href={profile.github} target="_blank" rel="noreferrer" className="text-muted hover:text-accent">
+          <div className="flex items-center gap-6 pt-4 border-t border-white/10 mt-2">
+            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-muted hover:text-ink">
               <FaGithub size={18} />
             </a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-muted hover:text-accent">
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-muted hover:text-ink">
               <FaLinkedin size={18} />
             </a>
-            <a href={profile.instagram} target="_blank" rel="noreferrer" className="text-muted hover:text-accent">
+            <a href={profile.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="text-muted hover:text-ink">
               <FaInstagram size={18} />
             </a>
             <a
@@ -125,9 +119,9 @@ export default function Nav() {
                 e.preventDefault()
                 downloadResume(profile.resumeUrl, profile.resumeFileName)
               }}
-              className="text-muted hover:text-accent flex items-center gap-1"
+              className="ml-auto inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-full bg-ink text-bg"
             >
-              <Download size={14} /> Resume
+              Resume <ArrowDown size={13} />
             </a>
           </div>
         </div>

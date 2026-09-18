@@ -15,7 +15,7 @@ export default function CursorGlow() {
   }, [x, y])
 
   const background = useTransform([x, y], ([xv, yv]: number[]) =>
-    `radial-gradient(700px circle at ${xv}px ${yv}px, var(--color-accent-soft), transparent 70%)`
+    `radial-gradient(600px circle at ${xv}px ${yv}px, var(--color-accent-soft), transparent 70%)`
   )
 
   return (

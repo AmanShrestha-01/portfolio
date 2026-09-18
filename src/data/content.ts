@@ -2,7 +2,7 @@ export const profile = {
   name: 'Aman Shrestha',
   role: 'Software Engineer',
   tagline: 'Backend Systems · Machine Learning',
-  headline: ['Aman', 'Shrestha.'],
+  headline: ['Aman', 'Shrestha'],
   coords: '39.34° N, 76.58° W',
   heroLine:
     "Software engineer. I build backends that hold up in production — and I'm taking that same discipline into machine learning.",
@@ -23,7 +23,7 @@ export const profile = {
     "That's why I've spent the past year focused on backend: architecture decisions, edge cases, and five production APIs shipped from scratch, all self-directed.",
     "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
     "Where I'm heading is machine learning. Two of my APIs already put an LLM behind real auth, per-user rate limits, and cost controls — and building them pulled me underneath the API call. I'm now working through the math (linear algebra, probability, optimization) and learning to build models with NumPy, scikit-learn, and PyTorch. The goal: engineer the systems that train and serve models, not just call them.",
-    "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing when no one's listening, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
+    "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing and play guitar for the soul, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
   interests: [
     'Chess',
@@ -40,10 +40,10 @@ export const profile = {
 }
 
 export const offClock = [
-  { src: '/images/singing.webp', label: 'Voice & Guitar', caption: "Mostly when no one's listening.", alt: 'Aman playing acoustic guitar under a warm backlight' },
-  { src: '/images/gym.webp', label: 'Weight Room', caption: 'A plan, not vibes.', alt: 'Aman in the gym between sets' },
+  { src: '/images/singing.webp', label: 'Melody', caption: 'Songs for the soul, not the stage.', alt: 'Aman playing acoustic guitar under a warm backlight' },
+  { src: '/images/gym.webp', label: 'Gym', caption: 'Discipline, one rep at a time.', alt: 'Aman in the gym between sets' },
   { src: '/images/pickleball.webp', label: 'Pickleball', caption: 'Competitive by default.', alt: 'Aman walking up to the net on a pickleball court' },
-  { src: '/images/chess.webp', label: 'Chess', caption: 'Thinking three moves out.', alt: 'A chessboard mid-game beside an open book of chess studies' },
+  { src: '/images/chess.webp', label: 'Chess', caption: 'Thinking three moves ahead.', alt: 'A chessboard mid-game beside an open book of chess studies' },
 ]
 
 export const quotes = {

@@ -29,8 +29,6 @@ export default function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
   const fieldOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
-  const ring = `${profile.role} · Machine Learning · ${profile.location} · Class of ${education.graduation.slice(-4)} · `
-
   return (
     <section
       ref={sectionRef}
@@ -47,7 +45,7 @@ export default function Hero() {
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           transition={{ delay: 1.2, duration: 2, ease }}
         >
-          <NeuralField anchorRef={portraitRef} spread={1.45} className="w-full h-full" />
+          <NeuralField anchorRef={portraitRef} spread={1.35} className="w-full h-full" />
         </motion.div>
       </motion.div>
 
@@ -125,34 +123,16 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end lg:pr-6">
+        <div className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end lg:self-start lg:pt-16 lg:pr-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.85, filter: 'blur(14px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ delay: 1.35, duration: 1.4, ease }}
             className="relative"
           >
-            {/* slowly rotating ring of text around the portrait */}
-            <motion.svg
-              aria-hidden
-              viewBox="0 0 200 200"
-              className="absolute -inset-[13%] w-[126%] h-[126%] text-muted/70"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-            >
-              <defs>
-                <path id="ring" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0" />
-              </defs>
-              <text className="font-mono uppercase" fontSize="6.2" fill="currentColor">
-                <textPath href="#ring" textLength="574" lengthAdjust="spacing">
-                  {ring}
-                </textPath>
-              </text>
-            </motion.svg>
-
             <div
               ref={portraitRef}
-              className="group relative w-44 h-44 sm:w-60 sm:h-60 lg:w-[22rem] lg:h-[22rem] xl:w-[24rem] xl:h-[24rem] rounded-full overflow-hidden ring-1 ring-white/15 shadow-[0_40px_120px_-30px_rgba(169,196,220,0.35)]"
+              className="group relative w-32 h-32 sm:w-40 sm:h-40 lg:w-52 lg:h-52 xl:w-56 xl:h-56 rounded-full overflow-hidden ring-1 ring-white/15 shadow-[0_30px_80px_-30px_rgba(169,196,220,0.3)]"
             >
               <img
                 src="/images/portrait.webp"

@@ -228,7 +228,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_80%_at_70%_100%,black,transparent)]" />
         <div
           className={`absolute -bottom-24 -right-10 w-72 h-72 rounded-full blur-3xl transition-opacity duration-700 opacity-40 group-hover:opacity-80 ${
-            p.tag === 'AI' ? 'bg-accent-2/30' : 'bg-white/10'
+            p.tag ? 'bg-accent-2/30' : 'bg-white/10'
           }`}
         />
         <span
@@ -246,7 +246,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           </div>
           {p.tag && (
             <span className="eyebrow !text-[0.6rem] px-2.5 py-1 rounded-full border border-accent-2/30 text-accent-2 bg-accent-2/[0.06]">
-              LLM · {p.tag}
+              {p.tag === 'AI' ? 'LLM · AI' : 'Machine Learning'}
             </span>
           )}
         </div>

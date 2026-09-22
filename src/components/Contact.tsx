@@ -54,7 +54,7 @@ export default function Contact() {
           transition={{ duration: 0.7, delay: 0.1, ease }}
           className="mt-8 text-muted text-base sm:text-lg max-w-lg mx-auto"
         >
-          Open to software engineering and ML internships or co-ops for Summer / Fall — reach out any time.
+          Open to software engineering, ML and backend internships for Summer / Fall — reach out any time.
         </motion.p>
 
         <motion.div

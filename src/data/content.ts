@@ -18,11 +18,11 @@ export const profile = {
   pitch:
     "I build production backends in Python — real auth, real databases, deployed and running. I now build and serve machine learning models with the same standards: a baseline before a model, a leakage audit before a result, and metrics that survive contact with an imbalanced dataset.",
   manifesto:
-    'I like problems with a database underneath, a real user on the other end of the request, and a model in the middle that I can defend line by line.',
+    "I build software that holds up — clean architecture, solid backends, real users on the other end. Now I'm learning machine learning the same way I learned everything else: from the fundamentals up.",
   bio: [
-    "That's why I've spent the past year on backend architecture and, more recently, on machine learning — production APIs and trained models, all shipped from scratch and self-directed.",
-    "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a working deployment at the end. If it's on my GitHub, it runs.",
-    "Putting an LLM behind real auth, rate limits, and cost controls pulled me underneath the API call — so I went and learned what was under it. I've since built two models end to end, and helped build a multi-agent system at HopHacks 2026: a fraud detector on 284,807 transactions where fraud is 0.17% of the data, served through a FastAPI endpoint, and a chess outcome predictor where the interesting work was the leakage audit, not the accuracy. What I took from both is that the hard part isn't fitting a model, it's knowing whether the number in front of you means anything. Next is PyTorch and the deep learning stack — the goal is to engineer the systems that train and serve models, not just call them.",
+    "I'm a software engineer first. Over the past year I've designed, tested and shipped production backends from scratch — REST APIs with real authentication, payments, real-time messaging, and databases built to hold up under real use.",
+    "Every project follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, tests for the edge cases, and a working deployment at the end. If it's on my GitHub, it runs.",
+    "Right now I'm learning machine learning — and learning it properly. I've trained my first models end to end, a chess outcome predictor and a credit card fraud detector, and learned to set a baseline before trusting a score and to catch data leakage before it flatters one. At HopHacks 2026 I helped build EmerFlow, a multi-agent AI system for hospitals. PyTorch and deep learning are next.",
     "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing and play guitar for the soul, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
   interests: [
@@ -36,7 +36,7 @@ export const profile = {
     'Psychology',
     'Systems Design',
   ],
-  status: 'Open to SWE & ML internships / co-ops — Summer / Fall',
+  status: 'Open to SWE, ML & backend internships — Summer / Fall',
 }
 
 export const offClock = [
@@ -56,17 +56,17 @@ export const quotes = {
 export const focus = {
   title: 'Machine Learning',
   points: [
-    { k: 'Rigor', v: 'Baselines first, leakage audited, per-class metrics' },
-    { k: 'Modeling', v: 'scikit-learn today, PyTorch next' },
-    { k: 'Systems', v: 'Models served behind real endpoints, not notebooks' },
+    { k: 'Now', v: 'scikit-learn, pandas, model evaluation' },
+    { k: 'Next', v: 'PyTorch and deep learning' },
+    { k: 'Built', v: 'Two models trained end to end' },
   ],
 }
 
 export const stats = [
-  { value: '8', label: 'Projects shipped' },
-  { value: '6', label: 'Production APIs' },
-  { value: '2', label: 'ML models served' },
-  { value: '284k', label: 'Rows in one pipeline' },
+  { value: '9', label: 'Projects built' },
+  { value: '5', label: 'Production APIs' },
+  { value: '2', label: 'ML models trained' },
+  { value: '1', label: 'Hackathon · HopHacks 2026' },
 ]
 
 export type SkillCategory = {
@@ -159,19 +159,21 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/AmanShrestha-01/Real-Time-Chat-Service',
   },
   {
-    slug: 'ai-study-assistant-api',
-    name: 'AI Study Assistant API',
-    year: '2025',
-    status: 'Deployed',
+    slug: 'credit-card-fraud-detection',
+    name: 'Credit Card Fraud Detection',
+    year: '2026',
     summary:
-      'Turns a pile of lecture notes into summaries, quizzes and study guides — with per-user rate limits keeping the inference bill from being the interesting part.',
+      'Finding 492 fraudulent transactions hidden in 284,807 — then putting the model behind a FastAPI endpoint that scores new ones.',
     bullets: [
-      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides behind JWT auth',
-      'Per-user rate limiting to keep inference costs bounded — the operational side of putting an LLM in production, not just calling one',
+      'Built an end-to-end pipeline on 284,807 transactions with a 0.17% fraud rate: stratified splitting, feature scaling, and a persisted scaler so inference matches training',
+      'Random Forest with balanced class weights reached 0.96 precision and 0.76 recall on the fraud class, against a logistic regression baseline at 0.83 / 0.64 — reported per-class, since accuracy is meaningless at this imbalance',
+      'Served the trained model through a FastAPI POST /predict endpoint returning a prediction and probability',
+      'Compared Random Forest against a 3-layer PyTorch network on a second dataset to test where each approach actually wins',
     ],
-    stack: ['Flask', 'SQLAlchemy', 'Claude API', 'JWT', 'Swagger'],
-    githubUrl: 'https://github.com/AmanShrestha-01/AI-Powered-Study-Assistant-API',
-    tag: 'AI',
+    stack: ['scikit-learn', 'PyTorch', 'FastAPI', 'pandas', 'NumPy', 'joblib'],
+    githubUrl: 'https://github.com/AmanShrestha-01/CreditCardFraudDetection_ML',
+    status: 'Open source',
+    tag: 'ML',
   },
   {
     slug: 'chess-winner-predictor',
@@ -191,21 +193,61 @@ export const projects: Project[] = [
     tag: 'ML',
   },
   {
-    slug: 'credit-card-fraud-detection',
-    name: 'Credit Card Fraud Detection',
-    year: '2026',
+    slug: 'ai-study-assistant-api',
+    name: 'AI Study Assistant API',
+    year: '2025',
+    status: 'Deployed',
     summary:
-      'Finding 492 fraudulent transactions hidden in 284,807 — then putting the model behind a FastAPI endpoint that scores new ones.',
+      'Turns a pile of lecture notes into summaries, quizzes and study guides — with per-user rate limits keeping the inference bill from being the interesting part.',
     bullets: [
-      'Built an end-to-end pipeline on 284,807 transactions with a 0.17% fraud rate: stratified splitting, feature scaling, and a persisted scaler so inference matches training',
-      'Random Forest with balanced class weights reached 0.96 precision and 0.76 recall on the fraud class, against a logistic regression baseline at 0.83 / 0.64 — reported per-class, since accuracy is meaningless at this imbalance',
-      'Served the trained model through a FastAPI POST /predict endpoint returning a prediction and probability',
-      'Compared Random Forest against a 3-layer PyTorch network on a second dataset to test where each approach actually wins',
+      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides behind JWT auth',
+      'Per-user rate limiting to keep inference costs bounded — the operational side of putting an LLM in production, not just calling one',
     ],
-    stack: ['scikit-learn', 'PyTorch', 'FastAPI', 'pandas', 'NumPy', 'joblib'],
-    githubUrl: 'https://github.com/AmanShrestha-01/CreditCardFraudDetection_ML',
-    status: 'Open source',
-    tag: 'ML',
+    stack: ['Flask', 'SQLAlchemy', 'Claude API', 'JWT', 'Swagger'],
+    githubUrl: 'https://github.com/AmanShrestha-01/AI-Powered-Study-Assistant-API',
+    tag: 'AI',
+  },
+  {
+    slug: 'ai-nutriplan',
+    name: 'AI-NutriPlan',
+    year: '2025',
+    status: 'Deployed',
+    summary:
+      'A nutrition-tracking API where users set macro goals, log intake, and receive AI-generated meal plans via Claude.',
+    bullets: [
+      'Meal-tracking API where users set macro goals, log daily intake, and receive AI-generated meal plans personalized to their targets via Claude',
+    ],
+    stack: ['Flask', 'SQLAlchemy', 'SQLite', 'Claude AI', 'JWT', 'Swagger'],
+    githubUrl: 'https://github.com/AmanShrestha-01/NutriPlan-AI',
+    tag: 'AI',
+  },
+  {
+    slug: 'newari-ghar',
+    name: 'Newari-Ghar',
+    year: '2026',
+    status: 'Deployed',
+    summary:
+      'A full-stack restaurant site for Nepali & Indian cuisine, with a Next.js frontend and an Express backend.',
+    bullets: [
+      'Built the customer-facing frontend in Next.js — menu browsing, responsive layout, page routing',
+      'Paired it with an Express backend serving structured menu and restaurant data',
+    ],
+    stack: ['Next.js', 'React', 'Express', 'Node.js'],
+    githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
+  },
+  {
+    slug: 'bookmarks-rest-api',
+    name: 'Bookmarks REST API',
+    year: '2025',
+    status: 'Live',
+    summary:
+      'A CRUD API with signup, Bcrypt hashing, and JWT auth — bookmarks isolated at the query level per user.',
+    bullets: [
+      'CRUD API with signup, Bcrypt hashing, and JWT auth — bookmarks isolated at the query level so users can only access their own data',
+    ],
+    stack: ['Flask', 'SQLAlchemy', 'JWT', 'Bcrypt', 'Render'],
+    githubUrl: 'https://github.com/AmanShrestha-01/Bookmarks_REST_API',
+    liveUrl: 'https://kaizen-bookmarks-api.onrender.com',
   },
 ]
 

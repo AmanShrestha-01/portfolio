@@ -24,8 +24,8 @@ export default function Projects() {
         <SectionHeading
           index="03"
           title="Work"
-          statement="I build it. I ship it. It runs."
-          subtitle="Six builds, from production backends to trained models and a multi-agent system built at HopHacks 2026 — each one taken from idea to working software."
+          statement="Built end to end. Hardest first."
+          subtitle="Nine projects, ordered by difficulty — from a multi-agent AI system built at HopHacks 2026, through production backends and trained models, to the first APIs I shipped."
         />
       </div>
       {desktop ? <PinnedCarousel /> : <SwipeCarousel />}

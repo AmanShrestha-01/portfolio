@@ -11,7 +11,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="01" title="About" statement="Machine learning, engineered to ship." />
+        <SectionHeading index="01" title="About" statement="Software engineer at heart. Machine learning in progress." />
 
         <div className="grid md:grid-cols-12 gap-8">
           <div className="hidden md:block md:col-span-3" />
@@ -49,7 +49,7 @@ export default function About() {
               <TiltCard className="glass glass-hover rounded-2xl p-7 relative overflow-hidden">
                 <div className="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-accent-2/15 blur-3xl" />
                 <p className="eyebrow text-accent-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-2 animate-pulse" /> Current focus
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-2 animate-pulse" /> Now learning
                 </p>
                 <p className="display text-4xl text-ink mt-4">{focus.title}</p>
                 <dl className="mt-6 divide-y divide-white/[0.07]">

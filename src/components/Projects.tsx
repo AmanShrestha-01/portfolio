@@ -25,7 +25,7 @@ export default function Projects() {
           index="03"
           title="Work"
           statement="I build it. I ship it. It runs."
-          subtitle="Six projects — five backend APIs and one full-stack app — covering auth, payments, real-time messaging, LLM integration, and frontend."
+          subtitle="Six builds, from production backends to trained models and a multi-agent system built at HopHacks 2026 — each one taken from idea to working software."
         />
       </div>
       {desktop ? <PinnedCarousel /> : <SwipeCarousel />}
@@ -91,7 +91,7 @@ function PinnedCarousel() {
             ref={trackRef}
             // cards recede to negative z, behind this plane — let clicks pass through to them
             style={{ x, transformStyle: 'preserve-3d' }}
-            className="pointer-events-none flex gap-8 w-max pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-[30vw]"
+            className="pointer-events-none flex items-center gap-8 w-max pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-[30vw]"
           >
             {projects.map((p, i) => (
               <Card3D key={p.slug} project={p} index={i} x={x} />
@@ -246,7 +246,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
           </div>
           {p.tag && (
             <span className="eyebrow !text-[0.6rem] px-2.5 py-1 rounded-full border border-accent-2/30 text-accent-2 bg-accent-2/[0.06]">
-              {p.tag === 'AI' ? 'LLM · AI' : 'Machine Learning'}
+              {{ AI: 'LLM · AI', ML: 'Machine Learning', Agents: 'AI Agents' }[p.tag]}
             </span>
           )}
         </div>
@@ -282,7 +282,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
               rel="noreferrer"
               className="relative z-20 inline-flex items-center gap-2 text-xs text-ink hover:text-accent-2 transition-colors"
             >
-              <ExternalLink size={14} /> Live
+              <ExternalLink size={14} /> {p.liveLabel ?? 'Live'}
             </a>
           )}
         </div>

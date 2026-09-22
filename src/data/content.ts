@@ -21,8 +21,8 @@ export const profile = {
     'I like problems with a database underneath, a real user on the other end of the request, and a model in the middle that I can defend line by line.',
   bio: [
     "That's why I've spent the past year on backend architecture and, more recently, on machine learning — production APIs and trained models, all shipped from scratch and self-directed.",
-    "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a live deployment at the end — not a tutorial abandoned at 80%. If it's on my GitHub, it runs.",
-    "Putting an LLM behind real auth, rate limits, and cost controls pulled me underneath the API call — so I went and learned what was under it. I've since built two models end to end: a fraud detector on 284,807 transactions where fraud is 0.17% of the data, served through a FastAPI endpoint, and a chess outcome predictor where the interesting work was the leakage audit, not the accuracy. What I took from both is that the hard part isn't fitting a model, it's knowing whether the number in front of you means anything. Next is PyTorch and the deep learning stack — the goal is to engineer the systems that train and serve models, not just call them.",
+    "Every one of them follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, a clean commit history, and a working deployment at the end. If it's on my GitHub, it runs.",
+    "Putting an LLM behind real auth, rate limits, and cost controls pulled me underneath the API call — so I went and learned what was under it. I've since built two models end to end, and helped build a multi-agent system at HopHacks 2026: a fraud detector on 284,807 transactions where fraud is 0.17% of the data, served through a FastAPI endpoint, and a chess outcome predictor where the interesting work was the leakage audit, not the accuracy. What I took from both is that the hard part isn't fitting a model, it's knowing whether the number in front of you means anything. Next is PyTorch and the deep learning stack — the goal is to engineer the systems that train and serve models, not just call them.",
     "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing and play guitar for the soul, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
   interests: [
@@ -56,9 +56,9 @@ export const quotes = {
 export const focus = {
   title: 'Machine Learning',
   points: [
-    { k: 'Math', v: 'Linear algebra, probability, optimization' },
-    { k: 'Modeling', v: 'NumPy → scikit-learn → PyTorch' },
-    { k: 'Systems', v: 'Serving models behind production APIs' },
+    { k: 'Rigor', v: 'Baselines first, leakage audited, per-class metrics' },
+    { k: 'Modeling', v: 'scikit-learn today, PyTorch next' },
+    { k: 'Systems', v: 'Models served behind real endpoints, not notebooks' },
   ],
 }
 
@@ -100,23 +100,43 @@ export type Project = {
   slug: string
   name: string
   year: string
-  status: 'Live' | 'Deployed'
-  tag?: 'AI' | 'ML'
+  status: 'Live' | 'Deployed' | 'Hackathon' | 'Open source'
+  tag?: 'AI' | 'ML' | 'Agents'
   summary: string
   bullets: string[]
   stack: string[]
   githubUrl: string
   liveUrl?: string
+  liveLabel?: string
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'emerflow',
+    name: 'EmerFlow',
+    year: '2026',
+    status: 'Hackathon',
+    summary:
+      'Built at HopHacks 2026: when a mass-casualty surge hits, eleven AI agents negotiate where every patient goes — code enforces every hard rule, and a human signs off on the big moves.',
+    bullets: [
+      'Ten Gemini department agents and a coordinator negotiate patient placement each round, answering in structured JSON behind per-call timeouts and a circuit breaker',
+      'The model proposes and never writes: every move is re-validated in code against live bed counts, nurse ratios and blood supply, so a hallucinated bed becomes a rejected move — not a misplaced patient',
+      'On a seeded 25-patient surge, coordination cut average time-to-bed from 18 minutes to 1, and the records check flagged 11 of 11 planted conflicts with no false alarms',
+      'Four-person team build — FastAPI, Next.js, a live EMS capacity map, one Cloud Run service, and 93 offline tests',
+    ],
+    stack: ['Python', 'FastAPI', 'Gemini · Vertex AI', 'Next.js', 'three.js', 'Cloud Run'],
+    githubUrl: 'https://github.com/RobertxPearce/emerflow',
+    liveUrl: 'https://devpost.com/software/emerflow-dpfzj4',
+    liveLabel: 'Devpost',
+    tag: 'Agents',
+  },
   {
     slug: 'e-commerce-platform',
     name: 'E-Commerce Platform',
     year: '2025',
     status: 'Deployed',
     summary:
-      'A 20+ endpoint REST API covering the full purchase flow — catalog, cart, orders, and live Stripe payments.',
+      'The full purchase flow behind 20+ endpoints — catalog, cart, orders and real Stripe payments, with the test suite to prove the edge cases hold.',
     bullets: [
       'Designed a 20+ endpoint REST API covering the full purchase flow: product catalog, cart management, order processing, and Stripe payments',
       'Role-based access control (customer vs. admin) with JWT auth; full Pytest suite covering auth, Stripe edge cases, and input validation',
@@ -130,7 +150,7 @@ export const projects: Project[] = [
     year: '2025',
     status: 'Deployed',
     summary:
-      'A WebSocket chat server built to scale horizontally — Redis Pub/Sub fans messages out across instances.',
+      'A chat server that survives being run twice — Redis Pub/Sub fans messages across instances, so scaling out never strands a user on the wrong server.',
     bullets: [
       'Built a WebSocket chat server supporting multiple concurrent rooms, live presence tracking, and persistent message history in PostgreSQL',
       'Used Redis Pub/Sub to broadcast across server instances, so the service scales horizontally without pinning users to one server',
@@ -144,7 +164,7 @@ export const projects: Project[] = [
     year: '2025',
     status: 'Deployed',
     summary:
-      'Turns uploaded notes into summaries, quizzes, and study guides — with per-user rate limits holding the AI spend down.',
+      'Turns a pile of lecture notes into summaries, quizzes and study guides — with per-user rate limits keeping the inference bill from being the interesting part.',
     bullets: [
       'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides behind JWT auth',
       'Per-user rate limiting to keep inference costs bounded — the operational side of putting an LLM in production, not just calling one',
@@ -157,9 +177,8 @@ export const projects: Project[] = [
     slug: 'chess-winner-predictor',
     name: 'Chess Winner Predictor',
     year: '2026',
-    status: 'Deployed',
     summary:
-      'Predicts white/black/draw from pre-game information alone. 62.6% accuracy against a 49.9% baseline — and the leakage audit is the point.',
+      'Calls the winner before a single move is played. 62.6% against a 49.9% baseline — and the leakage audit that got there is the real work.',
     bullets: [
       'Trained a random forest on 20k Lichess games using only pre-game features (ratings, rating difference, time control), reaching 62.6% accuracy against a 49.9% always-guess-white baseline',
       'Audited every column for data leakage and excluded four post-game fields; including them inflates accuracy to 71.8% while making the model useless on an unplayed game',
@@ -168,15 +187,15 @@ export const projects: Project[] = [
     ],
     stack: ['scikit-learn', 'pandas', 'matplotlib', 'Gradio', 'Jupyter'],
     githubUrl: 'https://github.com/AmanShrestha-01/Chess_Winner_Predictor',
+    status: 'Open source',
     tag: 'ML',
   },
   {
     slug: 'credit-card-fraud-detection',
     name: 'Credit Card Fraud Detection',
     year: '2026',
-    status: 'Deployed',
     summary:
-      'Catching fraud in 284k transactions where only 0.17% are positive — then serving the model behind a FastAPI endpoint.',
+      'Finding 492 fraudulent transactions hidden in 284,807 — then putting the model behind a FastAPI endpoint that scores new ones.',
     bullets: [
       'Built an end-to-end pipeline on 284,807 transactions with a 0.17% fraud rate: stratified splitting, feature scaling, and a persisted scaler so inference matches training',
       'Random Forest with balanced class weights reached 0.96 precision and 0.76 recall on the fraud class, against a logistic regression baseline at 0.83 / 0.64 — reported per-class, since accuracy is meaningless at this imbalance',
@@ -185,6 +204,7 @@ export const projects: Project[] = [
     ],
     stack: ['scikit-learn', 'PyTorch', 'FastAPI', 'pandas', 'NumPy', 'joblib'],
     githubUrl: 'https://github.com/AmanShrestha-01/CreditCardFraudDetection_ML',
+    status: 'Open source',
     tag: 'ML',
   },
 ]
@@ -204,7 +224,8 @@ export const experience: ExperienceItem[] = [
     location: 'Remote',
     period: 'Jan 2026 — Present',
     bullets: [
-      'Building production-grade software through a structured 24-week engineering program — five backend-heavy projects architected, tested, and deployed to production',
+      'Architected, tested and deployed eight projects end to end through a structured 24-week program — production REST APIs, a horizontally-scalable WebSocket service, and two machine learning models served behind API endpoints',
+      'Work spans the full path from request to prediction: auth, databases and payments on one side; feature engineering, leakage audits and model evaluation on the other',
     ],
   },
   {

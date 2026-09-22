@@ -11,7 +11,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="01" title="About" statement="Backend first. Machine learning next." />
+        <SectionHeading index="01" title="About" statement="Machine learning, engineered to ship." />
 
         <div className="grid md:grid-cols-12 gap-8">
           <div className="hidden md:block md:col-span-3" />

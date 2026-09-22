@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa'
 import { projects, type Project } from '../data/content'
 import SectionHeading from './SectionHeading'
+import ProjectArt from './ProjectArt'
 
 function useIsDesktop() {
   const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches)
@@ -24,8 +25,8 @@ export default function Projects() {
         <SectionHeading
           index="03"
           title="Work"
-          statement="Built end to end. Hardest first."
-          subtitle="Nine projects, ordered by difficulty — from a multi-agent AI system built at HopHacks 2026, through production backends and trained models, to the first APIs I shipped."
+          statement="Systems I've designed, built and shipped."
+          subtitle="Nine projects, most substantial first — a multi-agent AI system built at HopHacks 2026, production backends serving real traffic, and models trained end to end."
         />
       </div>
       {desktop ? <PinnedCarousel /> : <SwipeCarousel />}
@@ -70,9 +71,7 @@ function PinnedCarousel() {
     <div ref={wrapRef} style={{ height: `${projects.length * 70 + 60}vh` }} className="relative">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="mx-auto w-full max-w-7xl px-8 flex items-center justify-between mb-8">
-          <p className="font-mono text-xs text-muted tabular-nums">
-            <span className="text-ink">{String(active + 1).padStart(2, '0')}</span> / {String(projects.length).padStart(2, '0')}
-          </p>
+          <p className="eyebrow text-ink w-56 truncate">{projects[active].name}</p>
           <div className="flex-1 mx-8 h-px bg-white/10 relative overflow-hidden">
             <motion.span style={{ scaleX: scrollYProgress }} className="absolute inset-0 origin-left bg-ink" />
           </div>
@@ -93,8 +92,8 @@ function PinnedCarousel() {
             style={{ x, transformStyle: 'preserve-3d' }}
             className="pointer-events-none flex items-center gap-8 w-max pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-[30vw]"
           >
-            {projects.map((p, i) => (
-              <Card3D key={p.slug} project={p} index={i} x={x} />
+            {projects.map((p) => (
+              <Card3D key={p.slug} project={p} x={x} />
             ))}
           </motion.div>
         </div>
@@ -104,7 +103,7 @@ function PinnedCarousel() {
 }
 
 /* Each card turns and recedes the further it drifts from the viewport's focal point. */
-function Card3D({ project, index, x }: { project: Project; index: number; x: MotionValue<number> }) {
+function Card3D({ project, x }: { project: Project; x: MotionValue<number> }) {
   const ref = useRef<HTMLDivElement>(null)
   const offset = useRef(0)
   useLayoutEffect(() => {
@@ -126,7 +125,7 @@ function Card3D({ project, index, x }: { project: Project; index: number; x: Mot
 
   return (
     <motion.div ref={ref} style={{ rotateY, z, opacity }} className="pointer-events-auto w-[34rem] lg:w-[38rem] shrink-0">
-      <ProjectCard project={project} index={index} />
+      <ProjectCard project={project} />
     </motion.div>
   )
 }
@@ -163,7 +162,7 @@ function SwipeCarousel() {
             transition={{ duration: 0.7, delay: Math.min(i, 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="snap-center shrink-0 w-[86vw]"
           >
-            <ProjectCard project={p} index={i} />
+            <ProjectCard project={p} />
           </motion.div>
         ))}
       </div>
@@ -212,7 +211,7 @@ function CarouselButton({
   )
 }
 
-function ProjectCard({ project: p, index }: { project: Project; index: number }) {
+function ProjectCard({ project: p }: { project: Project }) {
   return (
     <div className="group relative glass glass-hover rounded-3xl overflow-hidden h-full flex flex-col has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ink">
       {/* the whole card is a real link to the repo; the Live link sits above it */}
@@ -223,7 +222,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
         aria-label={`${p.name} — view repository on GitHub`}
         className="absolute inset-0 z-10 rounded-3xl outline-none"
       />
-      {/* visual header: oversized outlined index over a masked grid */}
+      {/* visual header: line art for the project over a masked grid */}
       <div className="relative h-44 sm:h-52 border-b border-white/[0.07] overflow-hidden">
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_80%_at_70%_100%,black,transparent)]" />
         <div
@@ -231,12 +230,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
             p.tag ? 'bg-accent-2/30' : 'bg-white/10'
           }`}
         />
-        <span
-          className="absolute -bottom-6 right-4 display text-[9rem] sm:text-[11rem] text-transparent transition-transform duration-700 group-hover:-translate-y-2"
-          style={{ WebkitTextStroke: '1px rgba(255,255,255,0.18)' }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </span>
+        <ProjectArt kind={p.art} />
         <div className="absolute top-5 left-6 right-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className={`w-1.5 h-1.5 rounded-full ${p.status === 'Live' ? 'bg-live animate-pulse' : 'bg-white/60'}`} />

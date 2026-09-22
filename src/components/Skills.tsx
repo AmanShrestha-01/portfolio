@@ -40,10 +40,7 @@ export default function Skills() {
                 className={i === skills.length - 1 ? 'lg:col-span-2' : ''}
               >
                 <TiltCard className="glass glass-hover rounded-2xl p-6 h-full">
-                  <div className="flex items-center justify-between mb-6">
-                    <p className="eyebrow text-ink">{group.label}</p>
-                    <span className="font-mono text-[0.65rem] text-muted">{String(i + 1).padStart(2, '0')}</span>
-                  </div>
+                  <p className="eyebrow text-ink mb-6">{group.label}</p>
                   <ul className="space-y-2">
                     {group.items.map((item) => (
                       <li key={item} className="text-sm text-muted flex items-center gap-3">

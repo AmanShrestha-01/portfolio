@@ -4,8 +4,8 @@ import { profile, quotes, offClock } from '../data/content'
 
 const ease = [0.16, 1, 0.3, 1] as const
 // each column drifts at its own speed, so the row breathes as it scrolls past
-const drift = [70, -30, 40, -60]
-const offset = ['md:mt-0', 'md:mt-24', 'md:mt-10', 'md:mt-32']
+const drift = [70, -30, 40, -60, 24]
+const offset = ['md:mt-0', 'md:mt-24', 'md:mt-10', 'md:mt-32', 'md:mt-16']
 
 export default function OffTheClock() {
   const ref = useRef<HTMLDivElement>(null)
@@ -48,7 +48,7 @@ export default function OffTheClock() {
         </div>
       </div>
 
-      <div ref={ref} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 md:items-start">
+      <div ref={ref} className="mt-16 grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-5 md:items-start">
         {offClock.map((item, i) => (
           <Frame key={item.label} item={item} index={i} progress={scrollYProgress} />
         ))}
@@ -90,10 +90,10 @@ function Frame({
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 1, delay: index * 0.1, ease }}
-      className={`group ${offset[index]}`}
+      className={`group ${offset[index]} ${index === offClock.length - 1 ? "max-md:col-span-2" : ""}`}
     >
       <motion.div style={{ y }} className="md:will-change-transform">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-white/[0.08] bg-surface">
+        <div className={`relative overflow-hidden ${index === offClock.length - 1 ? "aspect-[4/5] max-md:aspect-[16/10]" : "aspect-[4/5]"} rounded-2xl ring-1 ring-white/[0.08] bg-surface`}>
           <img
             src={item.src}
             alt={item.alt}
@@ -103,9 +103,8 @@ function Frame({
           />
           {/* bottom scrim + label, so every frame reads as part of one set */}
           <div className="absolute inset-0 bg-gradient-to-t from-bg/85 via-bg/10 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 flex items-end justify-between gap-3">
+          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
             <p className="text-ink text-sm sm:text-base font-medium tracking-tight">{item.label}</p>
-            <span className="font-mono text-[0.65rem] text-muted">{String(index + 1).padStart(2, '0')}</span>
           </div>
         </div>
         <figcaption className="mt-3 text-xs sm:text-sm text-muted">{item.caption}</figcaption>

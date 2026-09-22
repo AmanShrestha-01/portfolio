@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { profile, education, quotes, focus, stats } from '../data/content'
+import { profile, education, quotes, focus } from '../data/content'
 import SectionHeading from './SectionHeading'
 import ScrollWords from './ScrollWords'
 import TiltCard from './TiltCard'
@@ -11,7 +11,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="01" title="About" statement="Software engineer at heart. Machine learning in progress." />
+        <SectionHeading index="01" title="About" statement="I build the whole system — and now the model inside it." />
 
         <div className="grid md:grid-cols-12 gap-8">
           <div className="hidden md:block md:col-span-3" />
@@ -19,23 +19,6 @@ export default function About() {
             text={profile.manifesto}
             className="md:col-span-9 display !tracking-[-0.035em] !leading-[1.08] text-3xl sm:text-4xl lg:text-5xl text-ink"
           />
-        </div>
-
-        {/* stats strip */}
-        <div className="mt-24 grid grid-cols-2 lg:grid-cols-4 border-t border-l border-white/[0.07]">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease }}
-              className="border-r border-b border-white/[0.07] p-6 sm:p-8"
-            >
-              <p className="display text-5xl sm:text-6xl text-sheen">{s.value}</p>
-              <p className="eyebrow text-muted mt-4">{s.label}</p>
-            </motion.div>
-          ))}
         </div>
 
         <div className="mt-24 grid md:grid-cols-12 gap-12 md:gap-8">

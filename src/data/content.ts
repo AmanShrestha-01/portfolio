@@ -18,7 +18,7 @@ export const profile = {
   pitch:
     "I build production backends in Python — real auth, real databases, deployed and running. I now build and serve machine learning models with the same standards: a baseline before a model, a leakage audit before a result, and metrics that survive contact with an imbalanced dataset.",
   manifesto:
-    "I build software that holds up — clean architecture, solid backends, real users on the other end. Now I'm learning machine learning the same way I learned everything else: from the fundamentals up.",
+    'Clean architecture, solid backends, real users on the other end of the request — and now a model in the middle that I can explain line by line.',
   bio: [
     "I'm a software engineer first. Over the past year I've designed, tested and shipped production backends from scratch — REST APIs with real authentication, payments, real-time messaging, and databases built to hold up under real use.",
     "Every project follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, tests for the edge cases, and a working deployment at the end. If it's on my GitHub, it runs.",
@@ -44,6 +44,7 @@ export const offClock = [
   { src: '/images/gym.webp', label: 'Gym', caption: 'Discipline, one rep at a time.', alt: 'Aman in the gym between sets' },
   { src: '/images/pickleball.webp', label: 'Pickleball', caption: 'Competitive by default.', alt: 'Aman walking up to the net on a pickleball court' },
   { src: '/images/chess.webp', label: 'Chess', caption: 'Thinking three moves ahead.', alt: 'A chessboard mid-game beside an open book of chess studies' },
+  { src: '/images/soccer.webp', label: 'Soccer', caption: 'The one I never stopped playing.', alt: 'A ball on an open pitch at sunset, boots in the foreground' },
 ]
 
 export const quotes = {
@@ -61,13 +62,6 @@ export const focus = {
     { k: 'Built', v: 'Two models trained end to end' },
   ],
 }
-
-export const stats = [
-  { value: '9', label: 'Projects built' },
-  { value: '5', label: 'Production APIs' },
-  { value: '2', label: 'ML models trained' },
-  { value: '1', label: 'Hackathon · HopHacks 2026' },
-]
 
 export type SkillCategory = {
   label: string
@@ -96,12 +90,15 @@ export const skills: SkillCategory[] = [
 
 export const learning = ['PyTorch', 'Deep Learning', 'Linear Algebra', 'Probability & Statistics', 'Model Serving']
 
+export type ProjectArtKind = 'agents' | 'model' | 'realtime' | 'board' | 'llm' | 'web' | 'api'
+
 export type Project = {
   slug: string
   name: string
   year: string
   status: 'Live' | 'Deployed' | 'Hackathon' | 'Open source'
   tag?: 'AI' | 'ML' | 'Agents'
+  art: ProjectArtKind
   summary: string
   bullets: string[]
   stack: string[]
@@ -113,6 +110,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'emerflow',
+    art: 'agents',
     name: 'EmerFlow',
     year: '2026',
     status: 'Hackathon',
@@ -132,6 +130,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'e-commerce-platform',
+    art: 'api',
     name: 'E-Commerce Platform',
     year: '2025',
     status: 'Deployed',
@@ -146,6 +145,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'real-time-chat-service',
+    art: 'realtime',
     name: 'Real-Time Chat Service',
     year: '2025',
     status: 'Deployed',
@@ -160,6 +160,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'credit-card-fraud-detection',
+    art: 'model',
     name: 'Credit Card Fraud Detection',
     year: '2026',
     summary:
@@ -177,6 +178,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'chess-winner-predictor',
+    art: 'board',
     name: 'Chess Winner Predictor',
     year: '2026',
     summary:
@@ -194,6 +196,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-study-assistant-api',
+    art: 'llm',
     name: 'AI Study Assistant API',
     year: '2025',
     status: 'Deployed',
@@ -209,6 +212,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-nutriplan',
+    art: 'llm',
     name: 'AI-NutriPlan',
     year: '2025',
     status: 'Deployed',
@@ -223,6 +227,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'newari-ghar',
+    art: 'web',
     name: 'Newari-Ghar',
     year: '2026',
     status: 'Deployed',
@@ -237,6 +242,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'bookmarks-rest-api',
+    art: 'api',
     name: 'Bookmarks REST API',
     year: '2025',
     status: 'Live',

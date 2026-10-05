@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
+import Magnetic from './Magnetic'
 import { profile } from '../data/content'
 
 const ease = [0.16, 1, 0.3, 1] as const
@@ -33,7 +34,7 @@ export default function Contact() {
           transition={{ duration: 0.7, ease }}
           className="eyebrow text-muted mb-8"
         >
-          <span className="text-ink">(05)</span> — Contact
+          <span className="text-ink">(06)</span> — Contact
         </motion.p>
 
         <div className="[perspective:1200px]">
@@ -64,6 +65,7 @@ export default function Contact() {
           transition={{ duration: 0.7, delay: 0.15, ease }}
           className="mt-10 flex justify-center"
         >
+          <Magnetic strength={0.2}>
           <motion.a
             href={`mailto:${profile.email}`}
             whileHover={{ y: -2 }}
@@ -75,6 +77,7 @@ export default function Contact() {
               <ArrowUpRight size={16} className="transition-transform duration-500 group-hover:rotate-45" />
             </span>
           </motion.a>
+          </Magnetic>
         </motion.div>
 
         <motion.div

@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa'
 import { projects, type Project } from '../data/content'
 import SectionHeading from './SectionHeading'
 import ProjectArt from './ProjectArt'
+import { scrollToY } from '../utils/smoothScroll'
 
 function useIsDesktop() {
   const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches)
@@ -64,13 +65,13 @@ function PinnedCarousel() {
     const scrollable = wrap.offsetHeight - window.innerHeight
     const target = Math.min(Math.max(active + dir, 0), projects.length - 1)
     const top = wrap.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top: top + (target / (projects.length - 1)) * scrollable, behavior: 'smooth' })
+    scrollToY(top + (target / (projects.length - 1)) * scrollable)
   }
 
   return (
     <div ref={wrapRef} style={{ height: `${projects.length * 70 + 60}vh` }} className="relative">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        <div className="mx-auto w-full max-w-7xl px-8 flex items-center justify-between mb-8">
+      <div className="sticky top-0 h-screen pt-16 flex flex-col justify-center overflow-hidden">
+        <div className="mx-auto w-full max-w-7xl px-8 flex items-center justify-between mb-5">
           <p className="eyebrow text-ink w-56 truncate">{projects[active].name}</p>
           <div className="flex-1 mx-8 h-px bg-white/10 relative overflow-hidden">
             <motion.span style={{ scaleX: scrollYProgress }} className="absolute inset-0 origin-left bg-ink" />
@@ -85,6 +86,22 @@ function PinnedCarousel() {
           </div>
         </div>
 
+        {/* the focused project's name, huge and outlined, behind the cards */}
+        <div aria-hidden className="absolute inset-x-0 -bottom-[1vh] overflow-hidden pointer-events-none">
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.p
+              key={active}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -60 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="display ghost-type whitespace-nowrap pl-8 text-[11vw] leading-none"
+            >
+              {projects[active].name}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+
         <div className="[perspective:1600px]">
           <motion.div
             ref={trackRef}
@@ -92,8 +109,8 @@ function PinnedCarousel() {
             style={{ x, transformStyle: 'preserve-3d' }}
             className="pointer-events-none flex items-center gap-8 w-max pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-[30vw]"
           >
-            {projects.map((p) => (
-              <Card3D key={p.slug} project={p} x={x} />
+            {projects.map((p, i) => (
+              <Card3D key={p.slug} project={p} x={x} focused={i === active} near={Math.abs(i - active) <= 1} />
             ))}
           </motion.div>
         </div>
@@ -103,7 +120,17 @@ function PinnedCarousel() {
 }
 
 /* Each card turns and recedes the further it drifts from the viewport's focal point. */
-function Card3D({ project, x }: { project: Project; x: MotionValue<number> }) {
+function Card3D({
+  project,
+  x,
+  focused,
+  near,
+}: {
+  project: Project
+  x: MotionValue<number>
+  focused: boolean
+  near: boolean
+}) {
   const ref = useRef<HTMLDivElement>(null)
   const offset = useRef(0)
   useLayoutEffect(() => {
@@ -124,8 +151,12 @@ function Card3D({ project, x }: { project: Project; x: MotionValue<number> }) {
   const opacity = useTransform(dist, (d) => 1 - Math.min(Math.abs(d), 1) * 0.55)
 
   return (
-    <motion.div ref={ref} style={{ rotateY, z, opacity }} className="pointer-events-auto w-[34rem] lg:w-[38rem] shrink-0">
-      <ProjectCard project={project} />
+    <motion.div
+      ref={ref}
+      style={{ rotateY, z, opacity }}
+      className="pointer-events-auto w-[34rem] lg:w-[38rem] shrink-0 will-change-transform"
+    >
+      <ProjectCard project={project} focused={focused} playing={near} />
     </motion.div>
   )
 }
@@ -162,7 +193,7 @@ function SwipeCarousel() {
             transition={{ duration: 0.7, delay: Math.min(i, 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="snap-center shrink-0 w-[86vw]"
           >
-            <ProjectCard project={p} />
+            <ProjectCard project={p} playing={Math.abs(i - active) <= 1} />
           </motion.div>
         ))}
       </div>
@@ -211,9 +242,27 @@ function CarouselButton({
   )
 }
 
-function ProjectCard({ project: p }: { project: Project }) {
+/* `playing` gates the header animation so only cards near the focus do any work. */
+const ProjectCard = memo(function ProjectCard({
+  project: p,
+  focused = false,
+  playing = true,
+}: {
+  project: Project
+  focused?: boolean
+  playing?: boolean
+}) {
+  const artRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const svg = artRef.current?.querySelector('svg')
+    if (!svg) return
+    if (playing) svg.unpauseAnimations()
+    else svg.pauseAnimations()
+  }, [playing])
+
   return (
-    <div className="group relative glass glass-hover rounded-3xl overflow-hidden h-full flex flex-col has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ink">
+    <div className={`group ${focused ? 'beam' : ''} relative card-solid glass-hover rounded-3xl overflow-hidden h-full flex flex-col has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ink`}
+    >
       {/* the whole card is a real link to the repo; the Live link sits above it */}
       <a
         href={p.githubUrl}
@@ -222,15 +271,17 @@ function ProjectCard({ project: p }: { project: Project }) {
         aria-label={`${p.name} — view repository on GitHub`}
         className="absolute inset-0 z-10 rounded-3xl outline-none"
       />
-      {/* visual header: line art for the project over a masked grid */}
-      <div className="relative h-44 sm:h-52 border-b border-white/[0.07] overflow-hidden">
+      {/* visual header: a looping diagram of what the project does, over a masked grid */}
+      <div className="relative h-52 md:h-40 xl:h-44 border-b border-white/[0.07] overflow-hidden bg-gradient-to-b from-white/[0.03] to-transparent">
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_80%_at_70%_100%,black,transparent)]" />
         <div
-          className={`absolute -bottom-24 -right-10 w-72 h-72 rounded-full blur-3xl transition-opacity duration-700 opacity-40 group-hover:opacity-80 ${
+          className={`absolute -bottom-24 -right-10 w-72 h-72 rounded-full blur-3xl transition-opacity duration-700 opacity-60 group-hover:opacity-100 ${
             p.tag ? 'bg-accent-2/30' : 'bg-white/10'
           }`}
         />
-        <ProjectArt kind={p.art} />
+        <div ref={artRef} className={playing ? '' : 'viz-paused'}>
+          <ProjectArt kind={p.art} />
+        </div>
         <div className="absolute top-5 left-6 right-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className={`w-1.5 h-1.5 rounded-full ${p.status === 'Live' ? 'bg-live animate-pulse' : 'bg-white/60'}`} />
@@ -253,19 +304,25 @@ function ProjectCard({ project: p }: { project: Project }) {
             <ArrowUpRight size={16} className="transition-transform duration-500 group-hover:rotate-45" />
           </span>
         </div>
-        <p className="mt-4 text-sm sm:text-[0.95rem] text-muted leading-relaxed">{p.summary}</p>
-        <ul className="mt-4 space-y-2">
-          {p.bullets.slice(1).map((b, bi) => (
-            <li key={bi} className="text-sm text-muted/90 flex gap-3">
-              <span className="w-3 h-px bg-white/25 mt-2.5 shrink-0" />
-              <span>{b}</span>
-            </li>
+        <p className="mt-4 text-base sm:text-lg text-ink/90 leading-snug max-w-[32rem]">{p.summary}</p>
+        <dl className="mt-5 border-t border-white/[0.07]">
+          {p.details.map((d) => (
+            <div key={d.k} className="grid grid-cols-[4.5rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 py-3 md:py-2.5 border-b border-white/[0.07]">
+              <dt className="eyebrow !text-[0.6rem] text-muted pt-1">{d.k}</dt>
+              <dd className="text-sm text-muted leading-relaxed">{d.v}</dd>
+            </div>
           ))}
-        </ul>
+        </dl>
 
-        <p className="mt-auto pt-6 font-mono text-[0.7rem] text-muted/80 leading-relaxed">{p.stack.join('  /  ')}</p>
+        <div className="mt-auto pt-5 flex flex-wrap gap-1.5">
+          {p.stack.map((t) => (
+            <span key={t} className="font-mono text-[0.65rem] text-muted px-2 py-1 rounded-full border border-white/[0.09]">
+              {t}
+            </span>
+          ))}
+        </div>
 
-        <div className="mt-5 pt-5 border-t border-white/[0.07] flex items-center gap-5">
+        <div className="mt-5 flex items-center gap-5">
           <span className="inline-flex items-center gap-2 text-xs text-muted group-hover:text-ink transition-colors">
             <FaGithub size={14} /> Repository
           </span>
@@ -283,4 +340,4 @@ function ProjectCard({ project: p }: { project: Project }) {
       </div>
     </div>
   )
-}
+})

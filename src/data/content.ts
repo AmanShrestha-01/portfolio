@@ -5,7 +5,7 @@ export const profile = {
   headline: ['Aman', 'Shrestha'],
   coords: '39.34° N, 76.58° W',
   heroLine:
-    "Software engineer. I build backends that hold up in production, and I bring the same discipline to machine learning — baselines, leakage audits, and honest numbers.",
+    'Software engineer building backends that hold up in production — and bringing the same rigor to machine learning: a baseline first, a leakage audit, and numbers I can defend.',
   location: 'Baltimore, MD',
   email: 'amanshrestha3003@gmail.com',
   github: 'https://github.com/AmanShrestha-01',
@@ -18,12 +18,12 @@ export const profile = {
   pitch:
     "I build production backends in Python — real auth, real databases, deployed and running. I now build and serve machine learning models with the same standards: a baseline before a model, a leakage audit before a result, and metrics that survive contact with an imbalanced dataset.",
   manifesto:
-    'Clean architecture, solid backends, real users on the other end of the request — and now a model in the middle that I can explain line by line.',
+    'I care about software that holds up — clear architecture, tested edge cases, and results I can explain line by line.',
   bio: [
-    "I'm a software engineer first. Over the past year I've designed, tested and shipped production backends from scratch — REST APIs with real authentication, payments, real-time messaging, and databases built to hold up under real use.",
-    "Every project follows the same discipline: hashed passwords, token-based auth, input validation that actually holds up, tests for the edge cases, and a working deployment at the end. If it's on my GitHub, it runs.",
-    "Right now I'm learning machine learning — and learning it properly. I've trained my first models end to end, a chess outcome predictor and a credit card fraud detector, and learned to set a baseline before trusting a score and to catch data leakage before it flatters one. At HopHacks 2026 I helped build EmerFlow, a multi-agent AI system for hospitals. PyTorch and deep learning are next.",
-    "Off the clock I'm just as serious about the chessboard, the pickleball court, and the weight room — I'm chasing a specific physique the same way I chase a specific system design: with a plan, not vibes. I sing and play guitar for the soul, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
+    "I'm a computer science student at Morgan State University and a software engineer by practice. Over the past year I've designed, tested and deployed backends from scratch: REST APIs with authentication and payments, a real-time messaging service, and the data layers behind them.",
+    "I hold every project to the same standard — hashed passwords, token-based auth, validated input, tests for the edge cases, and a working deployment at the end. The aim is always software that someone else could run, read and trust.",
+    "Machine learning is where I'm investing now. I've trained and evaluated two models end to end — a credit card fraud detector and a chess outcome predictor — and the lessons that stayed with me were about rigor: set a baseline before trusting a score, and audit for leakage before believing a good one. At HopHacks 2026 I was part of the four-person team behind EmerFlow, a multi-agent system for hospital surge response. PyTorch and deep learning are next.",
+    "Off the clock I'm just as serious about the chessboard, the pickleball court, and the gym — I'm chasing a specific physique the same way I chase a specific system design: deliberately, one step at a time. I sing and play guitar for the soul, think about philosophy and psychology more than is probably useful for a CS degree, and still show up for soccer whenever I can.",
   ],
   interests: [
     'Chess',
@@ -90,7 +90,7 @@ export const skills: SkillCategory[] = [
 
 export const learning = ['PyTorch', 'Deep Learning', 'Linear Algebra', 'Probability & Statistics', 'Model Serving']
 
-export type ProjectArtKind = 'agents' | 'model' | 'realtime' | 'board' | 'llm' | 'web' | 'api'
+export type ProjectArtKind = 'agents' | 'commerce' | 'model' | 'realtime' | 'board' | 'llm' | 'macros' | 'web' | 'api'
 
 export type Project = {
   slug: string
@@ -100,7 +100,7 @@ export type Project = {
   tag?: 'AI' | 'ML' | 'Agents'
   art: ProjectArtKind
   summary: string
-  bullets: string[]
+  details: { k: string; v: string }[]
   stack: string[]
   githubUrl: string
   liveUrl?: string
@@ -114,13 +114,11 @@ export const projects: Project[] = [
     name: 'EmerFlow',
     year: '2026',
     status: 'Hackathon',
-    summary:
-      'Built at HopHacks 2026: when a mass-casualty surge hits, eleven AI agents negotiate where every patient goes — code enforces every hard rule, and a human signs off on the big moves.',
-    bullets: [
-      'Ten Gemini department agents and a coordinator negotiate patient placement each round, answering in structured JSON behind per-call timeouts and a circuit breaker',
-      'The model proposes and never writes: every move is re-validated in code against live bed counts, nurse ratios and blood supply, so a hallucinated bed becomes a rejected move — not a misplaced patient',
-      'On a seeded 25-patient surge, coordination cut average time-to-bed from 18 minutes to 1, and the records check flagged 11 of 11 planted conflicts with no false alarms',
-      'Four-person team build — FastAPI, Next.js, a live EMS capacity map, one Cloud Run service, and 93 offline tests',
+    summary: 'A multi-agent system that decides where every patient goes when a hospital is overwhelmed.',
+    details: [
+      { k: 'Design', v: 'Ten department agents and a coordinator negotiate each placement. The model only proposes — code re-validates every move against live bed counts, nurse ratios and blood supply.' },
+      { k: 'Result', v: 'On a seeded 25-patient surge, average time-to-bed fell from 18 minutes to 1, and all 11 planted record conflicts were caught with no false alarms.' },
+      { k: 'Team', v: 'Built by four at HopHacks 2026, Johns Hopkins. One Cloud Run service, backed by 93 offline tests.' },
     ],
     stack: ['Python', 'FastAPI', 'Gemini · Vertex AI', 'Next.js', 'three.js', 'Cloud Run'],
     githubUrl: 'https://github.com/RobertxPearce/emerflow',
@@ -130,15 +128,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'e-commerce-platform',
-    art: 'api',
+    art: 'commerce',
     name: 'E-Commerce Platform',
     year: '2025',
     status: 'Deployed',
-    summary:
-      'The full purchase flow behind 20+ endpoints — catalog, cart, orders and real Stripe payments, with the test suite to prove the edge cases hold.',
-    bullets: [
-      'Designed a 20+ endpoint REST API covering the full purchase flow: product catalog, cart management, order processing, and Stripe payments',
-      'Role-based access control (customer vs. admin) with JWT auth; full Pytest suite covering auth, Stripe edge cases, and input validation',
+    summary: 'A complete purchase backend — catalog, cart, orders and real Stripe payments.',
+    details: [
+      { k: 'Scope', v: 'More than 20 REST endpoints covering the whole flow, from browsing the catalog to a paid order.' },
+      { k: 'Access', v: 'JWT authentication with role-based access control separating customers from admins.' },
+      { k: 'Testing', v: 'A Pytest suite covering authentication, input validation and Stripe edge cases.' },
     ],
     stack: ['Flask', 'PostgreSQL', 'SQLAlchemy', 'JWT', 'Stripe', 'Pytest', 'Swagger', 'Render'],
     githubUrl: 'https://github.com/AmanShrestha-01/E-Commerce-API',
@@ -149,11 +147,10 @@ export const projects: Project[] = [
     name: 'Real-Time Chat Service',
     year: '2025',
     status: 'Deployed',
-    summary:
-      'A chat server that survives being run twice — Redis Pub/Sub fans messages across instances, so scaling out never strands a user on the wrong server.',
-    bullets: [
-      'Built a WebSocket chat server supporting multiple concurrent rooms, live presence tracking, and persistent message history in PostgreSQL',
-      'Used Redis Pub/Sub to broadcast across server instances, so the service scales horizontally without pinning users to one server',
+    summary: 'A WebSocket chat server designed to run as more than one instance.',
+    details: [
+      { k: 'Features', v: 'Multiple concurrent rooms, live presence tracking, and message history persisted in PostgreSQL.' },
+      { k: 'Scaling', v: 'Redis Pub/Sub broadcasts every message across server instances, so scaling out never strands a user on the wrong server.' },
     ],
     stack: ['Flask', 'Flask-SocketIO', 'Redis Pub/Sub', 'PostgreSQL', 'Docker Compose'],
     githubUrl: 'https://github.com/AmanShrestha-01/Real-Time-Chat-Service',
@@ -163,13 +160,11 @@ export const projects: Project[] = [
     art: 'model',
     name: 'Credit Card Fraud Detection',
     year: '2026',
-    summary:
-      'Finding 492 fraudulent transactions hidden in 284,807 — then putting the model behind a FastAPI endpoint that scores new ones.',
-    bullets: [
-      'Built an end-to-end pipeline on 284,807 transactions with a 0.17% fraud rate: stratified splitting, feature scaling, and a persisted scaler so inference matches training',
-      'Random Forest with balanced class weights reached 0.96 precision and 0.76 recall on the fraud class, against a logistic regression baseline at 0.83 / 0.64 — reported per-class, since accuracy is meaningless at this imbalance',
-      'Served the trained model through a FastAPI POST /predict endpoint returning a prediction and probability',
-      'Compared Random Forest against a 3-layer PyTorch network on a second dataset to test where each approach actually wins',
+    summary: 'Finding 492 fraudulent transactions among 284,807 — and serving the model that does it.',
+    details: [
+      { k: 'Pipeline', v: 'Stratified splitting, feature scaling, and a persisted scaler so inference matches training exactly.' },
+      { k: 'Result', v: 'Random Forest with balanced class weights: 0.96 precision and 0.76 recall on fraud, against a logistic regression baseline at 0.83 / 0.64.' },
+      { k: 'Serving', v: 'A FastAPI /predict endpoint returning a prediction and its probability. The model is explorable live in the Lab below.' },
     ],
     stack: ['scikit-learn', 'PyTorch', 'FastAPI', 'pandas', 'NumPy', 'joblib'],
     githubUrl: 'https://github.com/AmanShrestha-01/CreditCardFraudDetection_ML',
@@ -181,13 +176,11 @@ export const projects: Project[] = [
     art: 'board',
     name: 'Chess Winner Predictor',
     year: '2026',
-    summary:
-      'Calls the winner before a single move is played. 62.6% against a 49.9% baseline — and the leakage audit that got there is the real work.',
-    bullets: [
-      'Trained a random forest on 20k Lichess games using only pre-game features (ratings, rating difference, time control), reaching 62.6% accuracy against a 49.9% always-guess-white baseline',
-      'Audited every column for data leakage and excluded four post-game fields; including them inflates accuracy to 71.8% while making the model useless on an unplayed game',
-      'Swept tree depth to demonstrate overfitting directly — an unlimited tree hit 99% on training data and 57.4% on held-out games',
-      'Shipped as a Gradio app with a documented notebook and plain-language reference notes',
+    summary: 'Predicts the winner of a chess game before the first move is played.',
+    details: [
+      { k: 'Result', v: '62.6% accuracy on 20,000 Lichess games using pre-game features alone, against a 49.9% baseline.' },
+      { k: 'Rigor', v: 'A column-by-column leakage audit removed four post-game fields that would have inflated accuracy to 71.8% — and made the model useless on an unplayed game.' },
+      { k: 'Shipped', v: 'A Gradio app with a documented notebook and plain-language reference notes.' },
     ],
     stack: ['scikit-learn', 'pandas', 'matplotlib', 'Gradio', 'Jupyter'],
     githubUrl: 'https://github.com/AmanShrestha-01/Chess_Winner_Predictor',
@@ -200,11 +193,10 @@ export const projects: Project[] = [
     name: 'AI Study Assistant API',
     year: '2025',
     status: 'Deployed',
-    summary:
-      'Turns a pile of lecture notes into summaries, quizzes and study guides — with per-user rate limits keeping the inference bill from being the interesting part.',
-    bullets: [
-      'Processes uploaded notes and uses Claude to generate summaries, quiz questions, and study guides behind JWT auth',
-      'Per-user rate limiting to keep inference costs bounded — the operational side of putting an LLM in production, not just calling one',
+    summary: 'Turns lecture notes into summaries, quizzes and study guides.',
+    details: [
+      { k: 'Flow', v: 'Uploaded notes are processed and passed to Claude, which returns summaries, quiz questions and study guides behind JWT-authenticated endpoints.' },
+      { k: 'Operations', v: 'Per-user rate limiting keeps inference costs bounded — the part of running an LLM in production that a demo skips.' },
     ],
     stack: ['Flask', 'SQLAlchemy', 'Claude API', 'JWT', 'Swagger'],
     githubUrl: 'https://github.com/AmanShrestha-01/AI-Powered-Study-Assistant-API',
@@ -212,14 +204,14 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-nutriplan',
-    art: 'llm',
+    art: 'macros',
     name: 'AI-NutriPlan',
     year: '2025',
     status: 'Deployed',
-    summary:
-      'A nutrition-tracking API where users set macro goals, log intake, and receive AI-generated meal plans via Claude.',
-    bullets: [
-      'Meal-tracking API where users set macro goals, log daily intake, and receive AI-generated meal plans personalized to their targets via Claude',
+    summary: 'A nutrition API that turns macro goals into a personalised meal plan.',
+    details: [
+      { k: 'Flow', v: 'Users set macro targets and log daily intake; Claude generates meal plans tailored to those targets.' },
+      { k: 'API', v: 'JWT-protected endpoints, documented with Swagger.' },
     ],
     stack: ['Flask', 'SQLAlchemy', 'SQLite', 'Claude AI', 'JWT', 'Swagger'],
     githubUrl: 'https://github.com/AmanShrestha-01/NutriPlan-AI',
@@ -231,11 +223,10 @@ export const projects: Project[] = [
     name: 'Newari-Ghar',
     year: '2026',
     status: 'Deployed',
-    summary:
-      'A full-stack restaurant site for Nepali & Indian cuisine, with a Next.js frontend and an Express backend.',
-    bullets: [
-      'Built the customer-facing frontend in Next.js — menu browsing, responsive layout, page routing',
-      'Paired it with an Express backend serving structured menu and restaurant data',
+    summary: 'A full-stack restaurant site for Nepali and Indian cuisine.',
+    details: [
+      { k: 'Frontend', v: 'Built in Next.js — menu browsing, responsive layout and page routing.' },
+      { k: 'Backend', v: 'An Express API serving structured menu and restaurant data.' },
     ],
     stack: ['Next.js', 'React', 'Express', 'Node.js'],
     githubUrl: 'https://github.com/AmanShrestha-01/Newari-Ghar',
@@ -246,10 +237,10 @@ export const projects: Project[] = [
     name: 'Bookmarks REST API',
     year: '2025',
     status: 'Live',
-    summary:
-      'A CRUD API with signup, Bcrypt hashing, and JWT auth — bookmarks isolated at the query level per user.',
-    bullets: [
-      'CRUD API with signup, Bcrypt hashing, and JWT auth — bookmarks isolated at the query level so users can only access their own data',
+    summary: 'A compact CRUD API built to get authentication and data isolation right.',
+    details: [
+      { k: 'Auth', v: 'Signup with Bcrypt-hashed passwords and JWT authentication.' },
+      { k: 'Isolation', v: "Bookmarks are filtered per user at the query level, so one account can never read another's data." },
     ],
     stack: ['Flask', 'SQLAlchemy', 'JWT', 'Bcrypt', 'Render'],
     githubUrl: 'https://github.com/AmanShrestha-01/Bookmarks_REST_API',

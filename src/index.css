@@ -16,10 +16,6 @@
   --color-live: #4ade80;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background-color: var(--color-bg);
   color: var(--color-ink);
@@ -68,15 +64,14 @@ body {
 /* film grain over the whole page */
 .grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.06;
-  mix-blend-mode: overlay;
+  /* plain alpha, not a blend mode: blending a fixed full-page layer forces every frame to recomposite */
+  opacity: 0.035;
 }
 
 /* Spatial glass: dark, frosted, hairline edge with a lit top rim */
 .glass {
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012) 60%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  /* no backdrop-filter: blurring behind a dozen cards over moving canvases costs more than it shows */
+  background: linear-gradient(170deg, rgba(26, 26, 30, 0.82), rgba(13, 13, 16, 0.82) 60%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow:
     0 30px 60px -30px rgba(0, 0, 0, 0.8),
@@ -89,7 +84,7 @@ body {
 
 .glass-hover:hover {
   border-color: rgba(255, 255, 255, 0.18);
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 60%);
+  background: linear-gradient(170deg, rgba(32, 32, 37, 0.86), rgba(14, 14, 17, 0.86) 60%);
   box-shadow:
     0 40px 80px -30px rgba(0, 0, 0, 0.9),
     0 0 60px -20px rgba(169, 196, 220, 0.25),
@@ -128,4 +123,232 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #3a3a40;
+}
+
+/* threshold slider in the Lab section */
+.lab-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  background: transparent;
+  cursor: ew-resize;
+}
+.lab-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.lab-range::-moz-range-track {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.lab-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 4px solid var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+.lab-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 4px solid var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+.lab-range:focus-visible {
+  outline: 1px solid var(--color-accent-2);
+  outline-offset: 4px;
+}
+
+/* ---- animated project visualisations (ProjectArt.tsx) ---- */
+:where(.viz [class^='viz-']) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes viz-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.viz-pulse { animation: viz-pulse 2.4s ease-in-out infinite; }
+@keyframes viz-pulse-soft {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.viz-pulse-soft { animation: viz-pulse-soft 2s ease-in-out infinite; }
+@keyframes viz-flow {
+  to { stroke-dashoffset: -18; }
+}
+.viz-flow { animation: viz-flow 1s linear infinite; }
+@keyframes viz-seq {
+  0%, 30%, 100% { opacity: 0; }
+  4%, 22% { opacity: 1; }
+}
+.viz-seq { opacity: 0; animation: viz-seq 4.8s ease-in-out infinite; }
+@keyframes viz-draw {
+  0%, 70% { stroke-dashoffset: 1; }
+  82%, 96% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 1; }
+}
+.viz-draw { stroke-dasharray: 1; animation: viz-draw 4.8s ease-in-out infinite; }
+@keyframes viz-ring {
+  0% { stroke-dashoffset: 1; }
+  35%, 88% { stroke-dashoffset: var(--gap, 0.28); }
+  100% { stroke-dashoffset: 1; }
+}
+.viz-ring { stroke-dasharray: 1; animation: viz-ring 6s cubic-bezier(0.16, 1, 0.3, 1) infinite both; }
+@keyframes viz-type {
+  0% { transform: scaleX(0); opacity: 1; }
+  12%, 86% { transform: scaleX(1); opacity: 1; }
+  96%, 100% { transform: scaleX(1); opacity: 0; }
+}
+.viz-type { transform-origin: left center; animation: viz-type 6s ease-out infinite both; }
+@keyframes viz-pop {
+  0% { opacity: 0; transform: translateY(8px); }
+  10%, 86% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(0); }
+}
+.viz-pop { animation: viz-pop 6s cubic-bezier(0.16, 1, 0.3, 1) infinite both; }
+@keyframes viz-blink {
+  50% { opacity: 0; }
+}
+.viz-blink { animation: viz-blink 1s steps(1) infinite; }
+@keyframes viz-scan {
+  from { transform: translateX(0); }
+  to { transform: translateX(560px); }
+}
+.viz-scan { animation: viz-scan 5s linear infinite; }
+@keyframes viz-flag {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  3% { opacity: 1; transform: scale(2.6); }
+  10%, 72% { opacity: 1; transform: scale(1.5); }
+}
+.viz-flag { animation: viz-flag 5s ease-out infinite both; }
+@keyframes viz-tick {
+  0%, 9%, 100% { opacity: 0.2; }
+  2% { opacity: 0.75; }
+}
+.viz-tick { animation: viz-tick 5s linear infinite both; }
+@keyframes viz-bar {
+  from { transform: scaleX(var(--from)); }
+  to { transform: scaleX(var(--to)); }
+}
+.viz-bar { transform-origin: left center; animation: viz-bar 3s ease-in-out infinite alternate; }
+@keyframes viz-knight {
+  0%, 18% { transform: translate(0, 0); }
+  30%, 62% { transform: translate(17px, -34px); }
+  74%, 100% { transform: translate(0, 0); }
+}
+.viz-knight { animation: viz-knight 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes viz-shimmer {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.viz-shimmer { animation: viz-shimmer 3s ease-in-out infinite; }
+@keyframes viz-cursor {
+  0%, 10% { transform: translate(410px, 96px); }
+  45%, 60% { transform: translate(322px, 182px); }
+  64% { transform: translate(322px, 182px) scale(0.85); }
+  68%, 100% { transform: translate(322px, 182px); }
+}
+.viz-cursor { transform-origin: 0 0; transform-box: view-box; animation: viz-cursor 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+/* a band of light that crosses the hero name every few seconds */
+.sheen-sweep {
+  background-image:
+    linear-gradient(105deg, transparent 44%, #ffffff 49%, #cfe4f5 51%, transparent 56%),
+    linear-gradient(180deg, #ffffff 20%, #9d9da6 110%);
+  background-size: 300% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  animation: sheen-sweep 7s cubic-bezier(0.65, 0, 0.35, 1) 3s infinite;
+  background-position: 150% 0, 0 0;
+}
+@keyframes sheen-sweep {
+  0% { background-position: 150% 0, 0 0; }
+  45%, 100% { background-position: -50% 0, 0 0; }
+}
+
+/* a light that travels around a card's edge */
+@property --beam {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam {
+  to { --beam: 360deg; }
+}
+.beam::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--beam), transparent 0 62%, rgba(169, 196, 220, 0.15) 74%, #dcebf7 86%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: beam 7s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* slow drifting light behind the whole page */
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.aurora::before {
+  width: 58vw;
+  height: 58vw;
+  left: -18vw;
+  top: -10vh;
+  background: radial-gradient(circle, rgba(120, 160, 205, 0.2), rgba(120, 160, 205, 0.06) 40%, transparent 70%);
+  animation: aurora-a 26s ease-in-out infinite alternate;
+}
+.aurora::after {
+  width: 52vw;
+  height: 52vw;
+  right: -16vw;
+  bottom: -20vh;
+  background: radial-gradient(circle, rgba(150, 140, 215, 0.13), rgba(150, 140, 215, 0.04) 40%, transparent 70%);
+  animation: aurora-b 32s ease-in-out infinite alternate;
+}
+@keyframes aurora-a {
+  to { transform: translate(34vw, 38vh) scale(1.25); }
+}
+@keyframes aurora-b {
+  to { transform: translate(-30vw, -34vh) scale(0.8); }
+}
+
+/* project cards: the glass look without backdrop-filter, which is too costly inside the 3D carousel */
+.card-solid {
+  background: linear-gradient(170deg, #17171b, #0d0d10 60%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 30px 60px -30px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.card-solid.glass-hover:hover {
+  background: linear-gradient(170deg, #1b1b20, #0e0e11 60%);
+}
+.viz-paused [class^='viz-'] {
+  animation-play-state: paused;
+}
+
+/* outlined display type used as a backdrop */
+.ghost-type {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.11);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz [class^='viz-'], .sheen-sweep, .beam::after, .aurora::before, .aurora::after { animation: none !important; }
+  .viz-packet { display: none; }
+  .viz-seq { opacity: 1; }
 }

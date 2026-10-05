@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { profile, education } from '../data/content'
 import { downloadResume } from '../utils/downloadResume'
+import Magnetic from './Magnetic'
+import HeroWaves from './HeroWaves'
 import NeuralField from './NeuralField'
 
 const ease = [0.16, 1, 0.3, 1] as const
@@ -47,6 +49,14 @@ export default function Hero() {
         >
           <NeuralField anchorRef={portraitRef} spread={1.35} className="w-full h-full" />
         </motion.div>
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-[46%] [mask-image:linear-gradient(to_bottom,transparent,black_60%,black_85%,transparent)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 2.4, ease }}
+        >
+          <HeroWaves className="w-full h-full" />
+        </motion.div>
       </motion.div>
 
       <motion.div
@@ -74,7 +84,7 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             variants={reveal}
-            className="display text-sheen text-[17vw] sm:text-[12vw] lg:text-[8.2rem] xl:text-[9rem]"
+            className="display text-sheen sheen-sweep text-[17vw] sm:text-[12vw] lg:text-[8.2rem] xl:text-[9rem]"
           >
             {profile.headline[0]}
             <br />
@@ -98,6 +108,7 @@ export default function Hero() {
             variants={reveal}
             className="mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-3"
           >
+            <Magnetic>
             <motion.a
               href="#projects"
               whileHover={{ y: -2 }}
@@ -107,6 +118,7 @@ export default function Hero() {
               See the work
               <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
             </motion.a>
+            </Magnetic>
             <motion.a
               href={profile.resumeUrl}
               download={profile.resumeFileName}
@@ -140,7 +152,7 @@ export default function Hero() {
                 width={900}
                 height={900}
                 fetchPriority="high"
-                className="w-full h-full object-cover grayscale contrast-[1.05] brightness-95 scale-105 transition-[filter,transform] duration-[1200ms] ease-out group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-100"
+                className="w-full h-full object-cover scale-105 transition-transform duration-[1200ms] ease-out group-hover:scale-100"
               />
               {/* edge falloff so the photo sinks into the page instead of sitting on it */}
               <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(6,6,7,0.55)_100%)] pointer-events-none" />

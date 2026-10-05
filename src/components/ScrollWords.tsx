@@ -28,9 +28,8 @@ function Word({
   range: [number, number]
 }) {
   const opacity = useTransform(progress, range, [0.12, 1])
-  const blur = useTransform(progress, range, ['blur(4px)', 'blur(0px)'])
   return (
-    <motion.span aria-hidden style={{ opacity, filter: blur }} className="inline-block mr-[0.25em]">
+    <motion.span aria-hidden style={{ opacity }} className="inline-block mr-[0.25em]">
       {children}
     </motion.span>
   )

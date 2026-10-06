@@ -34,7 +34,7 @@ export default function Contact() {
           transition={{ duration: 0.7, ease }}
           className="eyebrow text-muted mb-8"
         >
-          <span className="text-ink">(06)</span> — Contact
+          <span className="text-ink">(05)</span> — Contact
         </motion.p>
 
         <div className="[perspective:1200px]">

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { sphere, neuralNet, lossLandscape, torusKnot, type Shape } from '../utils/shapes'
+import { sphere, neuralNet, torusKnot, type Shape } from '../utils/shapes'
 
 // The hero sculpture's quieter twin: a fixed backdrop that follows the page, drifting
 // from side to side and shattering into a new shape as each section arrives.
@@ -25,7 +25,6 @@ const stops: { id: string; make: (n: number) => Shape; x: number; y: number; siz
   { id: 'about', make: sphere, x: 0.95, y: 0.74, size: 0.28 },
   { id: 'skills', make: neuralNet, x: 0.87, y: 0.25, size: 0.17 },
   { id: 'projects', make: torusKnot, x: 0.5, y: 0.5, size: 0.62, dim: 0 },
-  { id: 'lab', make: lossLandscape, x: 0.91, y: 0.38, size: 0.2 },
   { id: 'experience', make: helix, x: 0.1, y: 0.52, size: 0.34 },
   { id: 'contact', make: sphere, x: 0.5, y: 0.5, size: 0.46 },
 ]

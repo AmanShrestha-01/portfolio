@@ -8,7 +8,6 @@ import Marquee from './components/Marquee'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
-import ModelLab from './components/ModelLab'
 import ScrollField from './components/ScrollField'
 import ScrollProgress from './components/ScrollProgress'
 import Experience from './components/Experience'
@@ -33,7 +32,6 @@ function App() {
         <About />
         <Skills />
         <Projects />
-        <ModelLab />
         <Experience />
         <Contact />
       </main>

@@ -12,8 +12,6 @@ export const profile = {
   githubHandle: 'AmanShrestha-01',
   linkedin: 'https://www.linkedin.com/in/aman-shrestha-94388326a/',
   instagram: 'https://www.instagram.com/aman.shrestha_003/',
-  resumeUrl: '/resume.pdf',
-  resumeFileName: "Aman's Professional Resume.pdf",
   eduLine: 'B.S. Computer Science — Morgan State University, Class of 2028',
   pitch:
     "I build production backends in Python — real auth, real databases, deployed and running. I now build and serve machine learning models with the same standards: a baseline before a model, a leakage audit before a result, and metrics that survive contact with an imbalanced dataset.",
@@ -164,7 +162,7 @@ export const projects: Project[] = [
     details: [
       { k: 'Pipeline', v: 'Stratified splitting, feature scaling, and a persisted scaler so inference matches training exactly.' },
       { k: 'Result', v: 'Random Forest with balanced class weights: 0.96 precision and 0.76 recall on fraud, against a logistic regression baseline at 0.83 / 0.64.' },
-      { k: 'Serving', v: 'A FastAPI /predict endpoint returning a prediction and its probability. The model is explorable live in the Lab below.' },
+      { k: 'Serving', v: 'A FastAPI /predict endpoint returning a prediction and its probability.' },
     ],
     stack: ['scikit-learn', 'PyTorch', 'FastAPI', 'pandas', 'NumPy', 'joblib'],
     githubUrl: 'https://github.com/AmanShrestha-01/CreditCardFraudDetection_ML',

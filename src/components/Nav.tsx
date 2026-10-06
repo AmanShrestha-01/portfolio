@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, ArrowDown } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { profile } from '../data/content'
-import { downloadResume } from '../utils/downloadResume'
 
 const links = [
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Work' },
-  { href: '#lab', label: 'Lab' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ]
@@ -78,17 +76,6 @@ export default function Nav() {
           >
             <FaInstagram size={16} />
           </a>
-          <a
-            href={profile.resumeUrl}
-            download={profile.resumeFileName}
-            onClick={(e) => {
-              e.preventDefault()
-              downloadResume(profile.resumeUrl, profile.resumeFileName)
-            }}
-            className="inline-flex items-center gap-1.5 text-[0.75rem] px-3.5 py-1.5 rounded-full border border-white/15 text-ink hover:bg-ink hover:text-bg transition-colors"
-          >
-            Resume <ArrowDown size={12} />
-          </a>
         </div>
 
         <button
@@ -121,17 +108,6 @@ export default function Nav() {
             </a>
             <a href={profile.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="text-muted hover:text-ink">
               <FaInstagram size={18} />
-            </a>
-            <a
-              href={profile.resumeUrl}
-              download={profile.resumeFileName}
-              onClick={(e) => {
-                e.preventDefault()
-                downloadResume(profile.resumeUrl, profile.resumeFileName)
-              }}
-              className="ml-auto inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-full bg-ink text-bg"
-            >
-              Resume <ArrowDown size={13} />
             </a>
           </div>
         </div>

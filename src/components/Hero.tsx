@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { profile, education } from '../data/content'
-import { downloadResume } from '../utils/downloadResume'
 import Magnetic from './Magnetic'
 import HeroWaves from './HeroWaves'
 import NeuralField from './NeuralField'
@@ -119,19 +118,6 @@ export default function Hero() {
               <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
             </motion.a>
             </Magnetic>
-            <motion.a
-              href={profile.resumeUrl}
-              download={profile.resumeFileName}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={(e) => {
-                e.preventDefault()
-                downloadResume(profile.resumeUrl, profile.resumeFileName)
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] backdrop-blur-md text-ink text-sm pl-5 pr-4 py-2.5 hover:border-white/35 transition-colors"
-            >
-              Resume <ArrowDown size={14} />
-            </motion.a>
           </motion.div>
         </div>
 

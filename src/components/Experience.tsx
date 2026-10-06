@@ -15,7 +15,7 @@ export default function Experience() {
   return (
     <section id="experience" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading index="05" title="Experience" statement="Where I've done the work." />
+        <SectionHeading index="04" title="Experience" statement="Where I've done the work." />
 
         <div className="grid md:grid-cols-12 gap-8">
           <div className="hidden md:block md:col-span-3" />
